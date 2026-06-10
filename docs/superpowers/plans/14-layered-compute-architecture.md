@@ -23,7 +23,26 @@ COMPAQ (always-on orchestrator — light 80%)          MAC (heavy worker — 20%
 
 ### Task 1: Brain — NIM Nemotron driver on the Compaq
 
-- [ ] **Step 1:** Execute Plan 01 Task 3.1/3.2 with model = a Nemotron instruct model from build.nvidia.com (e.g. `nvidia/nemotron-3-super-120b` family — confirm exact id via `/v1/models`). Record id + observed rate behavior in `docs/notes/hermes-facts.md`.
+- [ ] **Step 1: Model selection (decided 2026-06-10 from the live catalog — 76 free endpoint models).**
+  Three roles, three models:
+  - **DRIVER (default for everything): `nemotron-3-super-120b-a12b`.** Why: the Nemotron line is
+    NVIDIA's explicitly agentic family — strong tool/function calling, which is THE make-or-break
+    capability for the orchestrator (every MCP call, search, and dispatch is a tool call); MoE with
+    ~12B active params = fast despite 120B class (the driver runs dozens of small jobs daily —
+    latency > peak depth, since depth lives on the Mac); NVIDIA's own flagship on NVIDIA's own
+    service = best-supported, least likely to vanish from the preview catalog.
+  - **FAST FALLBACK (429s/flakes): `deepseek-v4-flash`** — same OpenAI-compatible call, one config
+    line to swap when the driver rate-limits or the preview endpoint flakes.
+  - **DEEP ESCALATION (Mac asleep, deadline forces local depth): `deepseek-v4-pro`** — strongest
+    reasoner on the free catalog for one-off degraded deep jobs.
+  - Skipped deliberately: kimi/qwen3.5/glm/minimax (fine, don't beat the picks for these jobs);
+    cosmos/content-safety/voicechat/pii/video models (wrong modality).
+  ⚠️ Catalog display names ≠ API ids. Get exact strings first:
+  `curl -s https://integrate.api.nvidia.com/v1/models -H "Authorization: Bearer $NVIDIA_API_KEY" | python3 -m json.tool | grep '"id"' | grep -iE "nemotron-3-super|deepseek-v4"`
+  (expect e.g. `nvidia/nemotron-3-super-120b-a12b`, `deepseek-ai/deepseek-v4-flash`). Then execute
+  Plan 01 Task 3.1/3.2 with the driver id — and the smoke test MUST include a tool-call check, not
+  just chat (a driver that fumbles function calling is disqualified regardless of benchmarks).
+  Record ids + observed rate behavior in `docs/notes/hermes-facts.md`.
 - [ ] **Step 2: Rate-limit discipline** — add to `config/config.template.yaml` comments + `context/HERMES.md`: `Brain = 40 RPM free tier. Crons must not stampede: stagger schedules ≥5 min apart; on 429, back off 60s and retry ≤3.` If Portal quick-setup was already completed on the box, keep it as fallback provider — two free brains beat one.
 - [ ] **Step 3: Apply for the 200 RPM bump** (free, NVIDIA developer forums request) — file it early; record outcome.
 - [ ] **Step 4: Commit** — `git add config/ context/ docs/notes/ && git commit -m "feat(arch): NIM Nemotron driver + rate discipline"`
