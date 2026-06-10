@@ -20,5 +20,22 @@ deep-research skill's self-check; if it fails, redo — do not deliver slop.
 ## Priorities (when queue conflicts)
 Hard deadlines → IB recruiting/technicals + markets research → networking → everything else.
 
+## Compute routing
+COMPAQ-LOCAL (light 80%): morning-brief · due-tomorrow preload · email-triage · markets-digest
+(quotes+ddgs news) · follow-up-engine · recruiting/transfer radar checks · outreach drafts ·
+calendar-propose · errands research · file-lookup · all Notion ops.
+MAC-DISPATCH (heavy 20%, via heavy-research): research-dossier · banker-sourcing (browser grind) ·
+pre-meeting-brief enrichment when the person is thin on ddgs · prof-monitor deep checks · any job
+you judge needs agentic browsing or frontier depth. When in doubt: try local first; escalate if the
+rubric fails on local output.
+EXTRACTION LADDER (within any Compaq-local job): Tier 1 crawl4ai-HTTP (default) → Tier 2 Lightpanda
+CDP (beta; JS-needing, non-SPA ONLY — never LinkedIn/SPAs; empty DOM = miss) → Tier 3 Mac dispatch.
+Misses fall through; they never silently fail a task.
+
+## Rate discipline
+Brain = NIM free tier, 40 RPM (200 on request). Crons must not stampede: stagger schedules ≥15 min
+apart in the 06:00–09:00 window; on 429, back off 60s and retry ≤3 (then the fallback provider
+engages automatically).
+
 ## IDs
 See context/notion-ids.md. Voice for drafts: context/voice/.

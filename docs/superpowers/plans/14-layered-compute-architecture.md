@@ -58,7 +58,7 @@ COMPAQ (always-on orchestrator — light 80%)          MAC (heavy worker — 20%
   Plan 01 Task 3.1/3.2 with the driver id — and the smoke test MUST include a tool-call check, not
   just chat (a driver that fumbles function calling is disqualified regardless of benchmarks).
   Record ids + observed rate behavior in `docs/notes/hermes-facts.md`.
-- [ ] **Step 2: Rate-limit discipline** — add to `config/config.template.yaml` comments + `context/HERMES.md`: `Brain = 40 RPM free tier. Crons must not stampede: stagger schedules ≥5 min apart; on 429, back off 60s and retry ≤3.` If Portal quick-setup was already completed on the box, keep it as fallback provider — two free brains beat one.
+- [x] **Step 2: Rate-limit discipline** — add to `config/config.template.yaml` comments + `context/HERMES.md`: `Brain = 40 RPM free tier. Crons must not stampede: stagger schedules ≥5 min apart; on 429, back off 60s and retry ≤3.` If Portal quick-setup was already completed on the box, keep it as fallback provider — two free brains beat one.
 - [ ] **Step 3: Apply for the 200 RPM bump — DAY-1 BLOCKER, not "file it early."** The morning window
   (06:30 brief → 07:05 heartbeat → 07:30 markets → 08:15 email → 08:45 radar) fires multi-call agent
   loops against a 40 RPM ceiling; the bump is what makes the cron schedule viable. File the request
@@ -100,7 +100,7 @@ COMPAQ (always-on orchestrator — light 80%)          MAC (heavy worker — 20%
   06:00–08:00 + 21:00–01:30), or accept best-effort with eyes open.
   **Path convention note:** `~/work/dispatch` lives on the MAC (this plan); `~/work/<repo>` lives on
   the BOX (Plan 05 coding-pr). Same convention, different machines — don't conflate.
-- [ ] **Step 2: Write `context/HEAVY-WORKER.md`** — the dispatch contract:
+- [x] **Step 2: Write `context/HEAVY-WORKER.md`** — the dispatch contract:
 
 ```markdown
 # Heavy-worker dispatch contract (Compaq → Mac)
@@ -113,7 +113,7 @@ RULES: one job at a time; 30-min timeout; the Mac worker NEVER gets Notion/Teleg
 it researches and writes files, Hermes does all delivery and all workspace writes.
 ```
 
-- [ ] **Step 3: Write `skills/heavy-research/SKILL.md`**
+- [x] **Step 3: Write `skills/heavy-research/SKILL.md`**
 
 ```markdown
 ---
@@ -134,11 +134,11 @@ writes, and deliveries happen from Hermes after the gate.
 ```
 
 - [ ] **Step 4: E2E test** — from Telegram: a dossier request → verify dispatch path (Mac awake), then `sudo pmset sleepnow` on Mac → same request → verify queue + degrade offer.
-- [ ] **Step 5: Commit** — `git add skills/heavy-research/ context/HEAVY-WORKER.md && git commit -m "feat(arch): heavy-research SSH dispatch to Claude Code"`
+- [x] **Step 5: Commit** — `git add skills/heavy-research/ context/HEAVY-WORKER.md && git commit -m "feat(arch): heavy-research SSH dispatch to Claude Code"`
 
 ### Task 4: Routing table (which jobs run where)
 
-- [ ] **Step 1:** Append to `context/HERMES.md`:
+- [x] **Step 1:** Append to `context/HERMES.md`:
 
 ```markdown
 ## Compute routing
@@ -154,7 +154,7 @@ CDP (beta; JS-needing, non-SPA ONLY — never LinkedIn/SPAs; empty DOM = miss) �
 Misses fall through; they never silently fail a task.
 ```
 
-- [ ] **Step 2: Commit + update master plan row + spec decision table** (inference row → "Layered: NIM Nemotron (Compaq) + Claude Code heavy worker (Mac, best-effort)"; browser row → "Mac side via agent-browser/Claude Code; Compaq runs NO browser").
+- [x] **Step 2: Commit + update master plan row + spec decision table** (inference row → "Layered: NIM Nemotron (Compaq) + Claude Code heavy worker (Mac, best-effort)"; browser row → "Mac side via agent-browser/Claude Code; Compaq runs NO browser").
 
 ---
 

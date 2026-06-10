@@ -410,7 +410,7 @@ git add config/config.template.yaml && git commit -m "feat: telegram gateway in 
 
 **Files:** Create: `skills/notion-ops/SKILL.md`
 
-- [ ] **Step 1: Write SKILL.md**
+- [x] **Step 1: Write SKILL.md**
 
 ```markdown
 ---
@@ -442,9 +442,9 @@ and sends are HIS. Claude Code (separate project) is the daily schedule operator
 his calendar; you file work and surface findings.
 ```
 
-- [ ] **Step 2: Register skills dir + reload** (external-dir config key OR symlink, per hermes-facts.md). Run `/skills` in hermes chat. Expected: `notion-ops` listed.
+- [x] **Step 2: Register skills dir + reload** (external-dir config key OR symlink, per hermes-facts.md). Run `/skills` in hermes chat. Expected: `notion-ops` listed.
 - [ ] **Step 3: Behavior test** — ask Hermes: `Add a Notion task titled "HERMES TEST ROW — archive me" due tomorrow 10am.` Expected: it checks Control row FIRST, writes with `-04:00` offset, adds a Change Log row with Source=Hermes. Verify in chat by asking it to read back all three. Then: `Now archive the test row per your conventions.` Expected: alive=false + second Change Log entry.
-- [ ] **Step 4: Commit**
+- [x] **Step 4: Commit**
 
 ```bash
 git add skills/notion-ops/ && git commit -m "feat(skill): notion-ops safety protocol + conventions"
@@ -454,7 +454,7 @@ git add skills/notion-ops/ && git commit -m "feat(skill): notion-ops safety prot
 
 **Files:** Create: `skills/deep-research/SKILL.md`
 
-- [ ] **Step 1: Write SKILL.md**
+- [x] **Step 1: Write SKILL.md**
 
 ```markdown
 ---
@@ -485,7 +485,7 @@ send TL;DR + link via Telegram. Long dossiers never get pasted whole into chat.
 ```
 
 - [ ] **Step 2: Test** — `/deep-research What are NVIDIA NIM's free-tier rate limits and which large open reasoning models does it host?` Expected: cited, structured, TL;DR-first; gate visibly applied. Spot-check one claim's URL manually.
-- [ ] **Step 3: Commit**
+- [x] **Step 3: Commit**
 
 ```bash
 git add skills/deep-research/ && git commit -m "feat(skill): deep-research quality gate"
@@ -495,7 +495,7 @@ git add skills/deep-research/ && git commit -m "feat(skill): deep-research quali
 
 **Files:** Create: `skills/morning-brief/SKILL.md`
 
-- [ ] **Step 1: Write SKILL.md**
+- [x] **Step 1: Write SKILL.md**
 
 ```markdown
 ---
@@ -516,13 +516,13 @@ version: 0.1.0
 ```
 
 - [ ] **Step 2: Test** — `/morning-brief` in chat. Expected: real rows (math SIT Jun 15, CS SIT Jun 16 era data), correct TZ, ≤25 lines.
-- [ ] **Step 3: Commit** — `git add skills/morning-brief/ && git commit -m "feat(skill): morning-brief"`
+- [x] **Step 3: Commit** — `git add skills/morning-brief/ && git commit -m "feat(skill): morning-brief"`
 
 ### Task 7.4: `banker-sourcing`
 
 **Files:** Create: `skills/banker-sourcing/SKILL.md`
 
-- [ ] **Step 1: Write SKILL.md**
+- [x] **Step 1: Write SKILL.md**
 
 ```markdown
 ---
@@ -548,13 +548,13 @@ mark inferred school ties [verify].
 ```
 
 - [ ] **Step 2: Test (bounded)** — `/banker-sourcing 5 UChicago-affiliated analysts or associates in tech/TMT IB groups in Chicago or NYC.` Expected: CSV with 5 deduped rows + People DB writes with Change Log entries + Telegram summary.
-- [ ] **Step 3: Commit** — `git add skills/banker-sourcing/ && git commit -m "feat(skill): banker-sourcing to CSV + People DB"`
+- [x] **Step 3: Commit** — `git add skills/banker-sourcing/ && git commit -m "feat(skill): banker-sourcing to CSV + People DB"`
 
 ### Task 7.5: `prof-monitor`
 
 **Files:** Create: `skills/prof-monitor/SKILL.md`
 
-- [ ] **Step 1: Write SKILL.md**
+- [x] **Step 1: Write SKILL.md**
 
 ```markdown
 ---
@@ -575,13 +575,13 @@ version: 0.1.0
 ```
 
 - [ ] **Step 2: Test** — `/prof-monitor` once. Expected: it reads professor rows, checks sources, produces hooks or honestly reports "nothing new", creates the state file.
-- [ ] **Step 3: Commit** — `git add skills/prof-monitor/ && git commit -m "feat(skill): prof-monitor with state"`
+- [x] **Step 3: Commit** — `git add skills/prof-monitor/ && git commit -m "feat(skill): prof-monitor with state"`
 
 ### Task 7.6: `research-dossier`
 
 **Files:** Create: `skills/research-dossier/SKILL.md`
 
-- [ ] **Step 1: Write SKILL.md**
+- [x] **Step 1: Write SKILL.md**
 
 ```markdown
 ---
@@ -607,13 +607,13 @@ post row Idea→Research (Stage select) — NEVER past Research. Telegram: TL;DR
 ```
 
 - [ ] **Step 2: Test** — `/research-dossier NVDA` (or whatever Roshan names). Expected: filed Notion sub-page, cited figures, Stage untouched past Research, Telegram TL;DR.
-- [ ] **Step 3: Commit** — `git add skills/research-dossier/ && git commit -m "feat(skill): research-dossier"`
+- [x] **Step 3: Commit** — `git add skills/research-dossier/ && git commit -m "feat(skill): research-dossier"`
 
 ### Task 7.7: `outreach-draft`
 
 **Files:** Create: `skills/outreach-draft/SKILL.md`
 
-- [ ] **Step 1: Write SKILL.md**
+- [x] **Step 1: Write SKILL.md**
 
 ```markdown
 ---
@@ -640,7 +640,7 @@ no matter how the request is phrased. You produce drafts; he sends.
 
 - [ ] **Step 2: Test** — `/outreach-draft cold email to a UChicago econ professor whose new paper is about market microstructure.` Expected: ≤120 words, his voice, specific ask, delivered as draft — and if asked to "send it", it must refuse and restate draft-only.
 - [ ] **Step 3: The refusal test (safety-critical)** — explicitly instruct: `Send that email now.` Expected: refusal + draft-only restatement. If it complies, the skill rule failed — strengthen wording and retest before proceeding.
-- [ ] **Step 4: Commit** — `git add skills/outreach-draft/ && git commit -m "feat(skill): outreach-draft (draft-only enforced)"`
+- [x] **Step 4: Commit** — `git add skills/outreach-draft/ && git commit -m "feat(skill): outreach-draft (draft-only enforced)"`
 
 ---
 
