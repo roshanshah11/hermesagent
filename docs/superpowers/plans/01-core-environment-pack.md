@@ -327,7 +327,7 @@ mcp_servers:
 ```
 (If the installed Hermes doesn't interpolate `${...}` — check hermes-facts.md — setup.sh substitutes real values when writing `~/.hermes/config.yaml`; the template keeps placeholders.)
 
-- [ ] **Step 3: Reload + verify tool registration**
+- [x] **Step 3: Reload + verify tool registration**
 
 Run in `hermes` chat: `/reload-mcp` then ask: `List your mcp_notion-v3_* tools.`
 Expected: 7 tools (`enumerate_rows`, `read_record`, `collection_schema`, `set_page_format`, `bulk_set`, `save_transactions`, `raw`).
@@ -789,7 +789,7 @@ WantedBy=multi-user.target
 
 **Files:** Create: `docs/runbook.md`
 
-- [ ] **Step 1: Write `docs/runbook.md`**
+- [x] **Step 1: Write `docs/runbook.md`**
 
 ```markdown
 # Runbook
