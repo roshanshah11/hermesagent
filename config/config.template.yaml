@@ -34,6 +34,21 @@ agent:
   # Fast failover: SDK retries underneath; keep Hermes-level retries low so the
   # fallback provider engages quickly when NIM 429s.
   api_max_retries: 2
+  # "⏳ Working — N min" heartbeat every 60s on long turns (default 180 — too
+  # quiet for phone use; silent agents read as dead agents).
+  gateway_notify_interval: 60
+
+# Live-feedback UX (Roshan, 2026-06-10: "I need responses or at least
+# confirmations to know it's working"). Streaming: message appears at first
+# token and grows via progressive edits; final edit renders MarkdownV2.
+streaming:
+  enabled: true
+
+display:
+  platforms:
+    telegram:
+      # tidy the tool/working bubbles after a successful turn (failures keep them)
+      cleanup_progress: true
 
 # =============================================================================
 # Web search / extract (Plan 14: $0, keyless on the always-on box)
