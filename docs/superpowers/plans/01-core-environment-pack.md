@@ -382,8 +382,8 @@ git add docs/notes/hermes-facts.md && git commit -m "docs: browser profile + log
 
 ### Task 6.1: Bot + round-trip
 
-- [ ] **Step 1: Create bot** — Roshan messages @BotFather → `/newbot` → name e.g. `RoshanHermesBot` → token into `.env` as `TELEGRAM_BOT_TOKEN`.
-- [ ] **Step 2: Configure gateway** per hermes-facts.md (`hermes setup` gateway section or `hermes gateway ...`).
+- [x] **Step 1: Create bot** — Roshan messages @BotFather → `/newbot` → name e.g. `RoshanHermesBot` → token into `.env` as `TELEGRAM_BOT_TOKEN`.
+- [x] **Step 2: Configure gateway** per hermes-facts.md (`hermes setup` gateway section or `hermes gateway ...`).
 - [ ] **Step 3: Round-trip test** — Roshan sends "ping" to the bot from his phone. Expected: Hermes replies in Telegram. Then from Telegram: `How many alive rows in my Tasks DB?` Expected: ~213 — **phone → agent → Notion loop closed.**
 - [ ] **Step 4: Commit template updates**
 

@@ -202,3 +202,10 @@ mcp_servers:
     read fine). notion-ops protocol now has step 4: mandatory readback of every write; report only
     round-tripped ids; persistent-502-on-fresh-id = your write failed. Trust dial vindicated — keep
     write autonomy audited until clean weeks.
+20. GATEWAY UX + APPROVALS (2026-06-10, live): dangerous-command approvals surface as Telegram
+    buttons (once / session / always / deny) and BLOCK the run until tapped — Roshan's first brief
+    sat 42 min on one. "always" = approved permanently (inherited by later sessions incl. cron), so
+    interactive Phase-10 runs pre-clear the cron path. Feedback config shipped: streaming.enabled
+    true (first-token message + progressive edits; final edit MarkdownV2), agent.gateway_notify_interval
+    60 (default 180), display.platforms.telegram.cleanup_progress true. hooks_auto_accept relates to
+    shell-script hooks only (separate system). subagent_auto_approve exists for subagent prompts.
