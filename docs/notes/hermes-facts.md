@@ -183,3 +183,9 @@ mcp_servers:
     tier 3 escalate_heavy_research. Tier 2 activates only when LIGHTPANDA_CDP_URL is set
     (box probe at deploy). uv venvs have no pip — all venv installs go through
     `~/.hermes/bin/uv pip install --python <venv-python>`.
+17. LIVE BRING-UP (2026-06-10, Mac, key active): /v1/models = 121 models, all three plan IDs exist
+    verbatim (nvidia/nemotron-3-super-120b-a12b · deepseek-ai/deepseek-v4-flash · deepseek-ai/
+    deepseek-v4-pro). Driver tool-calling VERIFIED raw (proper tool_calls + exact args + finish_reason=
+    tool_calls — note: it correctly declines to invent missing required args; give IDs in prompt).
+    Through Hermes: `hermes -z` chat ✓ · live MCP read = 209 Tasks rows ✓ · web_search via ddgs ✓.
+    `timeout` cmd doesn't exist on macOS (GNU coreutils) — don't use in scripts meant for both hosts.

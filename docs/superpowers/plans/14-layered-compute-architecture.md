@@ -38,7 +38,7 @@ COMPAQ (always-on orchestrator — light 80%)          MAC (heavy worker — 20%
 
 ### Task 1: Brain — NIM Nemotron driver on the Compaq
 
-- [ ] **Step 1: Model selection (decided 2026-06-10 from the live catalog — 76 free endpoint models).**
+- [x] **Step 1: Model selection (decided 2026-06-10 from the live catalog — 76 free endpoint models).**
   Three roles, three models:
   - **DRIVER (default for everything): `nemotron-3-super-120b-a12b`.** Why: the Nemotron line is
     NVIDIA's explicitly agentic family — strong tool/function calling, which is THE make-or-break

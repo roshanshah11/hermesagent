@@ -269,9 +269,9 @@ git commit -m "docs: verified Hermes internals from installed v0.2.x"
 
 **Files:** `.env` (untracked)
 
-- [ ] **Step 1: Get the key** — Roshan creates one at https://build.nvidia.com (free). Put it in `.env` as `NVIDIA_API_KEY`. (If he's not present: STOP and Telegram/ask.)
+- [x] **Step 1: Get the key** — Roshan creates one at https://build.nvidia.com (free). Put it in `.env` as `NVIDIA_API_KEY`. (If he's not present: STOP and Telegram/ask.)
 
-- [ ] **Step 2: Test the endpoint raw**
+- [x] **Step 2: Test the endpoint raw**
 
 ```bash
 source .env && curl -s https://integrate.api.nvidia.com/v1/chat/completions \
@@ -285,9 +285,9 @@ Expected: JSON with `"READY"` in content. If model id 404s: `curl -s https://int
 **Files:**
 - Create: `config/config.template.yaml` (provider section; mcp added in Phase 4)
 
-- [ ] **Step 1: Configure via `hermes setup`** (choose custom/OpenAI-compatible endpoint; base URL `https://integrate.api.nvidia.com/v1`; key from `.env`; model = chosen id). Follow the EXACT flow recorded in `hermes-facts.md`.
+- [x] **Step 1: Configure via `hermes setup`** (choose custom/OpenAI-compatible endpoint; base URL `https://integrate.api.nvidia.com/v1`; key from `.env`; model = chosen id). Follow the EXACT flow recorded in `hermes-facts.md`.
 
-- [ ] **Step 2: Smoke test**
+- [x] **Step 2: Smoke test**
 
 Run: `hermes` (CLI chat) → ask: `What model are you running on? Reply in one line.`
 Expected: a response (content may vary); no auth/model errors in output.
@@ -332,7 +332,7 @@ mcp_servers:
 Run in `hermes` chat: `/reload-mcp` then ask: `List your mcp_notion-v3_* tools.`
 Expected: 7 tools (`enumerate_rows`, `read_record`, `collection_schema`, `set_page_format`, `bulk_set`, `save_transactions`, `raw`).
 
-- [ ] **Step 4: Live read test**
+- [x] **Step 4: Live read test**
 
 Ask Hermes: `Using mcp_notion-v3_notion_enumerate_rows with collection_id cae4bcc3-c36d-4b78-9653-578fb735fd99 and view_id f0a2583d-ce2f-4e41-bfad-22aa291d4e18, how many alive rows are in my Tasks DB? Reply with the number only.`
 Expected: ~213 (matches the Notion project's count). **This is the moment Hermes gains Notion hands.**
