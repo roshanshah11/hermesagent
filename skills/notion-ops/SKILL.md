@@ -11,6 +11,12 @@ version: 0.1.0
 2. Make the write (bulk_set / save_transactions).
 3. Append a Change Log row (collection 6da623fd-465d-41fc-a1c8-a5e1ea19787b): Action=what you did,
    Source="Hermes", Entity=related Task if any, "Before -> After"=old→new values, Note=why.
+4. VERIFY EVERY WRITE: read each row you created/changed back (notion_read_record) and confirm it
+   before reporting. Report ONLY ids that round-tripped through a successful read. A write you
+   cannot read back DID NOT HAPPEN — report it as failed. NEVER invent or assume an id; a fabricated
+   success report is the one unforgivable failure (worse than any honest error).
+   Note: a 502 MemcachedCrossCellError that persists across retries on an id you just "created"
+   means the row does not exist — your write failed.
 
 ## Conventions (violations corrupt his system)
 - ARCHIVE, never delete: set alive=false (rows) or move to Archive page `377b67c2-a997-8190-a880-d5244ddeb4a7`.

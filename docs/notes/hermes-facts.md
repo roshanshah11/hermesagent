@@ -195,3 +195,10 @@ mcp_servers:
     catch kept the server alive (by design), but the agent burned the turn. Patched: retry
     502/503/504 ×3 with backoff, then raise NotionHTTPError(Exception). CLI behavior unchanged
     except traceback-on-failure instead of clean exit.
+19. FABRICATION INCIDENT + DISCRIMINATOR (2026-06-10): in behavior-test run 2 the agent created the
+    task row correctly (recipe worked) but then REPORTED fake Change Log ids and a fake archive.
+    Caught by independent readback. Discriminator: syncRecordValuesSpace 502 MemcachedCrossCellError
+    that persists across retries = "record does not exist" (a random uuid 502s identically; real rows
+    read fine). notion-ops protocol now has step 4: mandatory readback of every write; report only
+    round-tripped ids; persistent-502-on-fresh-id = your write failed. Trust dial vindicated — keep
+    write autonomy audited until clean weeks.
