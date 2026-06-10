@@ -16,6 +16,7 @@ one-shot `setup.sh`. The repo IS the agent's identity — box dies → clone + s
 | `03-harness-safety-ops.md` | Snapshots/undo, heartbeat, incidents, injection guard, backups |
 | `04-…` – `08-…` | Capabilities: email/calendar · GitHub PRs · markets digest · recruiting+transfer radar · lead-gen/errands/files |
 | `09-self-learning-loop.md` | Auto-skill promotion via PR, voice learning, drift guard |
+| `10-…networking-completion…` | Pre-meeting briefs · follow-up engine · application library · review-prep cadence |
 
 Spec (the contract): `docs/superpowers/specs/2026-06-10-hermes-environment-pack-design.md`
 Background: `docs/hermes-charter.md` · `docs/hermes-delegation-analysis.md` · `docs/hermes-asset-map.md`

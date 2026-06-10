@@ -17,6 +17,7 @@
 | 07 | `07-capability-recruiting-transfer-radar.md` | Recruiting deadline radar (IB Apps DB) + UChicago transfer-onboarding tracker (Course Plan DB) | 01 | Week 1–2 |
 | 08 | `08-capability-leadgen-errands.md` | $100/day lead-gen (GTM DB; blocked on Roshan's channel call) + errands + file-lookup + knowledge filing | 01, 02 | Week 2 / when unblocked |
 | 09 | `09-self-learning-loop.md` | The growth engine: auto-generated-skill review → promote to repo, voice refinement, pattern memory | 01, 02 | Week 2, then continuous |
+| 10 | `10-capability-networking-completion-applications.md` | Audit-gap closure: pre-meeting briefs, follow-up engine, application drafting + answer library, weekly-review-prep cron | 01, 02 | Week 1–2 |
 | 10 | `10-capability-meeting-briefs.md` | Pre-meeting briefs: tomorrow's calls/meetings → who · history · agenda · questions, cited (wrong fact in a live call > no brief) | 01, 02 (+04/11 enrich) | Week 2 |
 | 11 | `11-capability-followup-engine.md` | People DB as living CRM: touch log, owed replies, cadence follow-up drafts (≤2, draft-only), gone-cold surfacing in the brief | 01, 02 (+04/10 enrich) | Week 2 |
 | 12 | `12-capability-application-drafting.md` | Application drafting + compounding answer library (Contrary, FM program, clubs) — flags personal takes, NEVER submits | 01, 02, 07 | Week 1–2 (Contrary Q3 deadline-driven) |
