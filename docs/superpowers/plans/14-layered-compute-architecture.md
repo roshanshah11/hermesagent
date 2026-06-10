@@ -69,7 +69,7 @@ COMPAQ (always-on orchestrator — light 80%)          MAC (heavy worker — 20%
 
 ### Task 2: Light search/extract on the Compaq (no browser, no keys)
 
-- [ ] **Step 1: ddgs (primary, zero-infra)** — `pip install ddgs` in Hermes's venv; smoke test: 3-result query from Python. This is the default search for ALL Compaq-local jobs.
+- [x] **Step 1: ddgs (primary, zero-infra)** — `pip install ddgs` in Hermes's venv; smoke test: 3-result query from Python. This is the default search for ALL Compaq-local jobs.
 - [ ] **Step 2: crawl4ai HTTP-only (extract)** — `pip install crawl4ai` configured with the **HTTPCrawlerStrategy** (no Playwright install on the Compaq — 2GB cannot hold Chromium; enforce by NOT running `crawl4ai-setup` browser step). Use for static-page extraction → markdown. Optionally install the packaged skill for reference: `npx skills add lancelin111/crawl4ai-skill -g -y`.
 - [ ] **Step 3: Lightpanda probe (Tier-2 — PROBABLY DEAD on this box; spend 2 minutes, not an hour).**
   The AMD E-300 has no AVX and Lightpanda is V8-based — expect `illegal instruction`. Probe ONLY:

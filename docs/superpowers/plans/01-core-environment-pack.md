@@ -650,7 +650,7 @@ no matter how the request is phrased. You produce drafts; he sends.
 
 **Files:** Create: `crons/crons.md`
 
-- [ ] **Step 1: Write `crons/crons.md`** (registration phrasing per hermes-facts.md syntax):
+- [x] **Step 1: Write `crons/crons.md`** (registration phrasing per hermes-facts.md syntax):
 
 ```markdown
 # Crons (timezone America/New_York)
@@ -673,7 +673,7 @@ no matter how the request is phrased. You produce drafts; he sends.
 
 **Files:** Create: `setup.sh`
 
-- [ ] **Step 1: Write `setup.sh`**
+- [x] **Step 1: Write `setup.sh`**
 
 ```bash
 #!/usr/bin/env bash
@@ -715,7 +715,7 @@ echo "==> [6/6] Done. Next: run 'hermes setup' ONCE for the Telegram gateway if 
 echo "    then 'hermes' and try /skills, /morning-brief. Register crons per crons/crons.md."
 ```
 
-- [ ] **Step 2: Lint + dry-run on the Mac**
+- [x] **Step 2: Lint + dry-run on the Mac**
 
 Run: `bash -n setup.sh && shellcheck setup.sh 2>/dev/null || true; ./setup.sh`
 Expected: completes; `~/.hermes/skills/roshan-pack` symlink exists; config rendered with real values; re-running is harmless (idempotent).
