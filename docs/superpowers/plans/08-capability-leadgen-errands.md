@@ -78,7 +78,10 @@ version: 0.1.0
 ---
 # File Lookup
 SCOPE: ~/sync/ (Roshan's pushed files) + ~/work/ (repos) + output/ (own artifacts) + the agent's notes.
-NEVER reach outside these without asking (no SSH-ing into his Mac uninvited even if keys exist).
+MAC VIA SSH (he set this up): when a lookup needs his Mac, you MAY search over ssh (rg/find through
+the granted key) — per-request, read-only, and say so in the answer ("searched your Mac over SSH").
+Standing crawls/indexing of his Mac: only if he explicitly asks for that. Outside ~/sync, ~/work,
+output/, and granted-SSH paths: ask first.
 1. rg -i across scope (filenames + contents); rank by relevance/recency.
 2. Return: file path · the actual relevant excerpt (quoted) · 1 line of context. Multiple hits → top 3.
 3. "Send it to me" → paste full text (small) or describe + path (large). Read-only: never edit/move

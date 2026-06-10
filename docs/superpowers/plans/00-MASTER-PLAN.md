@@ -27,6 +27,24 @@
    └──► 05 github · 07 radar
 ```
 
+## ⚖️ Skill-authoring philosophy (GOVERNS every plan in this corpus)
+
+Three layers — author them differently:
+1. **Harness (structural):** brain/provider, tools/MCP, browser, files/SSH, channels, scheduler,
+   memory, and HOW skills+identity are governed (this repo = source of truth; trust ledger; drift
+   guard). Build exactly as planned — this is the product.
+2. **Rules (constitutional — fully prescriptive):** Control-DB check, Change Log, draft-only outward,
+   quality rubric, injection guard, allowlists, payment gates. Never soften; never let the agent
+   "optimize" these away.
+3. **Task skills (intent contracts — deliberately light):** the pipeline SKILL.md bodies in these
+   plans state WHAT the job is, the OUTPUT shape, and the HARD CONSTRAINTS. Where they enumerate
+   numbered steps, those are an illustrative v0 default, NOT a locked procedure — the agent owns the
+   HOW, may do it differently, and is expected to evolve its methods through Plan 09 (its own
+   procedural memory). When authoring, trim any step that is method rather than contract.
+
+Roshan's directive (2026-06-10): don't script the agent's behavior — build the structure that lets it
+control its brain, its skills, its files, its everything, safely.
+
 ## Build order rationale
 01 first because nothing exists without the runtime+hands. 02/03 immediately after because **autonomy
 widens only as fast as the harness earns trust** (the spec's binding constraint) — the gate and the

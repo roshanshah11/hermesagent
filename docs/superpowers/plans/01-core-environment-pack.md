@@ -388,6 +388,12 @@ git add config/config.template.yaml && git commit -m "feat: telegram gateway in 
 > (`name`, `description`, `version: 0.1.0`). Register the repo's `skills/` as an external skill dir in
 > config (key per hermes-facts.md); if external dirs are unsupported in this version, setup.sh symlinks
 > `~/.hermes/skills/roshan-pack` → repo `skills/` instead. Test each skill via `/skill-name` in CLI chat.
+>
+> ⚖️ **AUTHORING RULE (from 00-MASTER-PLAN philosophy):** `notion-ops`, `deep-research`, and
+> `outreach-draft` contain CONSTITUTIONAL rules — author verbatim, never soften. The pipeline skills
+> (7.3–7.6) are INTENT CONTRACTS: keep the WHAT / output shape / hard constraints; any numbered method
+> steps inside them are an illustrative v0 the agent may replace as it learns (Plan 09). Don't script
+> the agent's behavior — state the contract and let the structure do the governing.
 
 ### Task 7.1: `notion-ops` (foundation library)
 
