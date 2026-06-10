@@ -1,0 +1,9 @@
+.env
+mcp/.env
+__pycache__/
+*.pyc
+*.log
+browser-profile/
+.DS_Store
+node_modules/
+output/
