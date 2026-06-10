@@ -21,6 +21,7 @@
 | 11 | `11-capability-followup-engine.md` | People DB as living CRM: touch log, owed replies, cadence follow-up drafts (≤2, draft-only), gone-cold surfacing in the brief | 01, 02 (+04/10 enrich) | Week 2 |
 | 12 | `12-capability-application-drafting.md` | Application drafting + compounding answer library (Contrary, FM program, clubs) — flags personal takes, NEVER submits | 01, 02, 07 | Week 1–2 (Contrary Q3 deadline-driven) |
 | 13 | `13-cron-weekly-review-prep.md` | Sunday pre-filled weekly-review doc — slipped · week-ahead · relationships · research queue · Hermes's week | 01 (+02/06/07/11 light up sections) | Week 2 |
+| 14 | `14-layered-compute-architecture.md` | **The $0 stack (ARCH — read with 01):** NIM Nemotron driver on the Compaq · ddgs + crawl4ai HTTP-only local search/extract (NO browser on the 2GB box) · heavy 20% dispatches via SSH to Claude Code on the Mac, best-effort with queue/degrade | 01 | Day 1–2, alongside 01 |
 
 > Plans 10–13 added 2026-06-10 (same day, second pass): they close the four delegation-analysis §2/§4
 > gaps — pre-meeting briefs, follow-up engine, application drafting + answer library, weekly-review prep.

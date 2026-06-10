@@ -38,7 +38,8 @@
 | Decision | Choice |
 |---|---|
 | Runtime/harness | Hermes Agent (Nous) — not custom loop, not LangGraph/Goose |
-| Inference | Hosted free open models, NIM custom endpoint; OpenRouter fallback. No local inference (old box, no GPU) |
+| Inference | **AMENDED 2026-06-10 (Plan 14):** Layered $0 stack — NIM free tier (Nemotron, 40 RPM) drives the Compaq for the light 80%; heavy 20% (deep research, agentic browsing) dispatches over SSH to Claude Code headless on the Mac (best-effort: queue/degrade when asleep). Nous Portal/OpenRouter = optional fallback providers |
+| Browser | **AMENDED 2026-06-10 (Plan 14):** NO browser on the Compaq (2GB AMD E-300 can't hold Chromium). Agentic browsing runs Mac-side (agent-browser / Claude Code); Compaq uses ddgs + crawl4ai HTTP-only for search/extract |
 | Channel | Telegram primary; email delivery later |
 | Computer scope | Linux box = its body, full control there; Mac via SSH Roshan configures |
 | Source of truth | This repo (`roshanshah11/hermesagent`) = environment pack: skills, MCP, config, context, setup.sh. Box dies → clone + setup.sh = reborn |
