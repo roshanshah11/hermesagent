@@ -23,17 +23,17 @@
 
 **Files:** none (checks only)
 
-- [ ] **Step 1: Verify git, gh, and the clone**
+- [x] **Step 1: Verify git, gh, and the clone**
 
 Run: `cd /Users/roshanshah1/Downloads/hermesagent && git remote -v && git status --short && ls`
 Expected: remote `origin  https://github.com/roshanshah11/hermesagent.git`; seeded `docs/` and `mcp/` present.
 
-- [ ] **Step 2: Verify gh auth**
+- [x] **Step 2: Verify gh auth**
 
 Run: `gh auth status`
 Expected: logged in as `roshanshah11`. If not: STOP, ask Roshan to run `! gh auth login`.
 
-- [ ] **Step 3: Verify the seeded MCP files compile**
+- [x] **Step 3: Verify the seeded MCP files compile**
 
 Run: `python3 -m py_compile mcp/notion_v3.py mcp/notion_v3_mcp.py && echo OK`
 Expected: `OK`
@@ -47,7 +47,7 @@ Expected: `OK`
 **Files:**
 - Create: `.gitignore`, `.env.example`, `README.md`
 
-- [ ] **Step 1: Write `.gitignore`**
+- [x] **Step 1: Write `.gitignore`**
 
 ```gitignore
 .env
@@ -60,7 +60,7 @@ browser-profile/
 node_modules/
 ```
 
-- [ ] **Step 2: Write `.env.example`**
+- [x] **Step 2: Write `.env.example`**
 
 ```bash
 # Inference — NVIDIA NIM (free models): create key at https://build.nvidia.com
@@ -80,7 +80,7 @@ TELEGRAM_BOT_TOKEN=
 BRAVE_API_KEY=
 ```
 
-- [ ] **Step 3: Write `README.md`**
+- [x] **Step 3: Write `README.md`**
 
 ```markdown
 # Hermes Environment Pack
@@ -98,7 +98,7 @@ Design: `docs/superpowers/specs/2026-06-10-hermes-environment-pack-design.md`
 Plan:   `docs/superpowers/plans/2026-06-10-hermes-environment-pack.md`
 ```
 
-- [ ] **Step 4: Commit**
+- [x] **Step 4: Commit**
 
 ```bash
 git add .gitignore .env.example README.md
@@ -110,7 +110,7 @@ git commit -m "chore: repo hygiene — gitignore, env template, readme"
 **Files:**
 - Create: `CLAUDE.md`
 
-- [ ] **Step 1: Write `CLAUDE.md`** (full content in repo root; see the file as committed — it states: mission, locked decisions table from the spec, build order = this plan, secrets policy, "verify against docs/notes/hermes-facts.md before relying on Hermes internals", and pointers to spec/plan/seed docs)
+- [x] **Step 1: Write `CLAUDE.md`** (full content in repo root; see the file as committed — it states: mission, locked decisions table from the spec, build order = this plan, secrets policy, "verify against docs/notes/hermes-facts.md before relying on Hermes internals", and pointers to spec/plan/seed docs)
 
 ```markdown
 # HERMES ENVIRONMENT PACK — BUILD REPO (CLAUDE.md)
@@ -141,7 +141,7 @@ check Control DB first, log to Change Log, archive-don't-delete.
 `docs/hermes-charter.md` + `docs/hermes-delegation-analysis.md` + `docs/hermes-asset-map.md` (why).
 ```
 
-- [ ] **Step 2: Commit**
+- [x] **Step 2: Commit**
 
 ```bash
 git add CLAUDE.md
@@ -154,7 +154,7 @@ git commit -m "docs: cold-start CLAUDE.md for build sessions"
 - Create: `context/HERMES.md`, `context/notion-ids.md`
 - Create: `context/voice/interview-raw.md` (copy)
 
-- [ ] **Step 1: Write `context/HERMES.md`** — the agent's persona + standing rules
+- [x] **Step 1: Write `context/HERMES.md`** — the agent's persona + standing rules
 
 ```markdown
 # HERMES — operating identity
@@ -183,7 +183,7 @@ Hard deadlines → IB recruiting/technicals + markets research → networking �
 See context/notion-ids.md. Voice for drafts: context/voice/.
 ```
 
-- [ ] **Step 2: Write `context/notion-ids.md`** — the subset of the registry Hermes needs
+- [x] **Step 2: Write `context/notion-ids.md`** — the subset of the registry Hermes needs
 
 ```markdown
 # Notion IDs Hermes uses (dashed or dashless both work)
@@ -204,12 +204,12 @@ See context/notion-ids.md. Voice for drafts: context/voice/.
   UNIQUE_ID prefix TSK; relation Tasks↔People synced name "Tasks".
 ```
 
-- [ ] **Step 3: Copy voice corpus**
+- [x] **Step 3: Copy voice corpus**
 
 Run: `mkdir -p context/voice && cp /Users/roshanshah1/Downloads/Notion/INTERVIEW-RAW.md context/voice/interview-raw.md && wc -l context/voice/interview-raw.md`
 Expected: file copied, several hundred lines.
 
-- [ ] **Step 4: Commit**
+- [x] **Step 4: Commit**
 
 ```bash
 git add context/
@@ -225,17 +225,17 @@ git commit -m "feat: context seed — persona, notion IDs, voice corpus"
 **Files:**
 - Create: `docs/notes/hermes-facts.md`
 
-- [ ] **Step 1: Install**
+- [x] **Step 1: Install**
 
 Run: `curl -fsSL https://hermes-agent.nousresearch.com/install.sh | bash`
 Expected: installs deps (uv, Python 3.11, Node 22, ripgrep, ffmpeg), clones to `~/.hermes/hermes-agent/`, symlinks `~/.local/bin/hermes`. If PATH lacks `~/.local/bin`, add it: `echo 'export PATH="$HOME/.local/bin:$PATH"' >> ~/.zshrc && source ~/.zshrc`.
 
-- [ ] **Step 2: Verify**
+- [x] **Step 2: Verify**
 
 Run: `hermes --version && ls ~/.hermes/`
 Expected: a version string (0.2.x); data dir contents visible.
 
-- [ ] **Step 3: Survey the installed truth (this step de-risks every later task)**
+- [x] **Step 3: Survey the installed truth (this step de-risks every later task)**
 
 Run each; paste real outputs into `docs/notes/hermes-facts.md`:
 ```bash
@@ -247,9 +247,9 @@ rg -n "cron|schedule" ~/.hermes/hermes-agent/website/docs/ -l | head -20
 rg -n "external|skill_dirs|skills_dir" ~/.hermes/hermes-agent/ --type yaml --type py -l | head -20
 ```
 
-- [ ] **Step 4: Write `docs/notes/hermes-facts.md`** with sections: CLI commands (real `--help` output) · config.yaml schema as installed (provider block, mcp_servers, skill dirs key) · skills layout + frontmatter fields as shipped · cron registration syntax (exact) · gateway/Telegram setup flow (exact) · browser tool name + how to point it at a persistent profile dir · how sessions/memory persist. **Every later task defers to this file over this plan's assumptions.**
+- [x] **Step 4: Write `docs/notes/hermes-facts.md`** with sections: CLI commands (real `--help` output) · config.yaml schema as installed (provider block, mcp_servers, skill dirs key) · skills layout + frontmatter fields as shipped · cron registration syntax (exact) · gateway/Telegram setup flow (exact) · browser tool name + how to point it at a persistent profile dir · how sessions/memory persist. **Every later task defers to this file over this plan's assumptions.**
 
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
 
 ```bash
 git add docs/notes/hermes-facts.md
