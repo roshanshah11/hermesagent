@@ -32,18 +32,29 @@ TOKEN, SPACE_ID, USER_ID = _ENV["NOTION_TOKEN_V2"], _ENV.get("NOTION_SPACE_ID", 
 TZ = "America/New_York"
 
 
-def request(endpoint, payload):
+class NotionHTTPError(Exception):
+    """Notion api/v3 HTTP failure after retries. A normal Exception (NOT SystemExit) so a
+    long-running MCP server's dispatcher can catch it — observed live 2026-06-10: transient
+    syncRecordValuesSpace 502 (MemcachedCrossCellError); these are retryable per workspace docs."""
+
+
+def request(endpoint, payload, attempts=3):
     req = urllib.request.Request(BASE + endpoint, data=json.dumps(payload).encode(), method="POST")
     req.add_header("Content-Type", "application/json")
     req.add_header("cookie", f"token_v2={TOKEN}")
     req.add_header("x-notion-active-user-header", USER_ID)
     req.add_header("notion-audit-log-platform", "web")
     req.add_header("User-Agent", "Mozilla/5.0")
-    try:
-        with urllib.request.urlopen(req, timeout=90) as r:
-            return json.loads(r.read().decode())
-    except urllib.error.HTTPError as e:
-        raise SystemExit(f"HTTP {e.code} on {endpoint}: {e.read().decode()[:600]}")
+    for attempt in range(attempts):
+        try:
+            with urllib.request.urlopen(req, timeout=90) as r:
+                return json.loads(r.read().decode())
+        except urllib.error.HTTPError as e:
+            body = e.read().decode()[:600]
+            if e.code in (502, 503, 504) and attempt < attempts - 1:
+                time.sleep(2 * (attempt + 1))  # transient Notion flake — retry per docs
+                continue
+            raise NotionHTTPError(f"HTTP {e.code} on {endpoint}: {body}")
 
 
 def _rec(table, rid):

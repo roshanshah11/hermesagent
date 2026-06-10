@@ -189,3 +189,9 @@ mcp_servers:
     tool_calls — note: it correctly declines to invent missing required args; give IDs in prompt).
     Through Hermes: `hermes -z` chat ✓ · live MCP read = 209 Tasks rows ✓ · web_search via ddgs ✓.
     `timeout` cmd doesn't exist on macOS (GNU coreutils) — don't use in scripts meant for both hosts.
+18. LIVE DEFECT FIXED (2026-06-10): Notion api/v3 throws transient 502 MemcachedCrossCellError
+    (observed on syncRecordValuesSpace during the first notion-ops behavior test). notion_v3.py
+    request() formerly raised SystemExit on any HTTPError — the MCP dispatcher's BaseException
+    catch kept the server alive (by design), but the agent burned the turn. Patched: retry
+    502/503/504 ×3 with backoff, then raise NotionHTTPError(Exception). CLI behavior unchanged
+    except traceback-on-failure instead of clean exit.
