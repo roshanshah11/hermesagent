@@ -19,6 +19,8 @@ version: 0.1.0
 - Row enumeration: notion_enumerate_rows (official API caps ~25).
 - Records double-wrap: recordMap[table][id].value.value. queryCollection has no total — use high limit.
 - Bulk writes: ≤15 rows per batch, pace larger jobs. syncRecordValuesSpace 502s sometimes — retry.
+- WRITE SHAPES: use the verified op recipes in references/write-recipes.md (this skill's dir) for
+  row creation, dates, selects, relations, and archiving — do NOT improvise transaction structures.
 - All IDs: context/notion-ids.md in the environment-pack repo.
 
 ## Division of labor
