@@ -260,6 +260,11 @@ git commit -m "docs: verified Hermes internals from installed v0.2.x"
 
 ## Phase 3 — Provider: NVIDIA NIM custom endpoint
 
+> ⛔ **STOP — SUPERSEDED IN PART BY PLAN 14.** Execute Plan 14 Task 0 (Compaq memory gate) and
+> Task 1 (model selection: `nemotron-3-super-120b-a12b` driver + deepseek-v4 fallbacks) BEFORE this
+> phase. The example model below (`deepseek-r1`) is for endpoint smoke-testing only — the real
+> driver choice and rate discipline live in Plan 14. Do not pick models from this phase.
+
 ### Task 3.1: Key + raw endpoint test (before Hermes touches it)
 
 **Files:** `.env` (untracked)
@@ -342,6 +347,12 @@ git commit -m "feat: notion-v3 MCP wired into config template"
 ---
 
 ## Phase 5 — Web search + scraping
+
+> ⛔ **STOP — SUPERSEDED IN PART BY PLAN 14.** On the Compaq there is NO browser and NO Brave-key
+> requirement: search = ddgs (keyless), extract = crawl4ai HTTP-only, heavy browsing = Mac dispatch
+> (Plan 14 Tasks 2–3). Task 5.1 below applies only if a hosted search key is later wanted as a
+> supplement; Task 5.2 (browser + persistent profile) applies to the MAC side only — never install
+> Chromium/Playwright on the 2GB box.
 
 ### Task 5.1: Search provider
 
@@ -736,7 +747,9 @@ git add docs/notes/hermes-facts.md && git commit -m "test: Mac E2E acceptance �
 ### Task 11.1: Box prep (Roshan + Claude Code over SSH)
 
 - [ ] **Step 1: Box checklist** — Roshan confirms: Linux installed + network up; he created a user; **SSH server enabled (he said he's setting SSH up)**; then from the Mac: `ssh <user>@<box-ip> 'uname -a && free -h && df -h /'`
-Expected: ≥4GB RAM, ≥10GB free disk. If <4GB: still try — Hermes is a Python app, inference is remote — but record it.
+Expected reality (verified): **2GB RAM, AMD E-300** — this box FAILS the generic ≥4GB guidance, which
+is why Plan 14 Task 0 (memory gate) is a HARD prerequisite: measure Hermes idle + one-task RSS before
+building anything on the box. ≥10GB free disk still required. Disk/RAM results → hermes-facts.md.
 - [ ] **Step 2: Tailscale (recommended)** — on box: `curl -fsSL https://tailscale.com/install.sh | sh && sudo tailscale up`; on Mac/phone: same network → box reachable anywhere as `<box-name>`.
 - [ ] **Step 3: Base deps** — `sudo apt update && sudo apt install -y git curl python3` (Debian/Ubuntu assumed; adjust per distro). Timezone: `sudo timedatectl set-timezone America/New_York`.
 
@@ -750,7 +763,7 @@ ssh <user>@<box> 'git clone https://github.com/roshanshah11/hermesagent.git && c
 scp /Users/roshanshah1/Downloads/hermesagent/.env <user>@<box>:hermesagent/.env
 ```
 
-- [ ] **Step 2: Run setup** — `ssh <user>@<box> 'cd hermesagent && ./setup.sh'` Expected: same as Mac run. Then `hermes setup` once for the Telegram gateway on the box (token from .env). **Stop the Mac instance first** (one bot token = one consumer) — record the stop command per hermes-facts.md.
+- [ ] **Step 2: Run setup** — `ssh <user>@<box> 'cd hermesagent && ./setup.sh'` Expected: same as Mac run. Then `hermes setup` once for the Telegram gateway on the box (token from .env). **Two-bot rule (prevents the "agent went deaf" class of incidents):** the PROD bot token lives only on the box; the Mac uses a separate DEV bot (`@BotFather → RoshanHermesDevBot`, token in `.env.dev`). One token = one consumer — with two tokens, Mac-side testing can never silently steal the box's update stream. Add `TELEGRAM_BOT_TOKEN_DEV=` to `.env.example`.
 - [ ] **Step 3: Browser logins on the box** — headed browser via SSH X-forward (`ssh -X`) or temporary VNC, using the persistent profile dir; Roshan logs into LinkedIn (+ any gated sites) once.
 - [ ] **Step 4: Persistence** — make the gateway survive reboots: if Hermes ships a service command (hermes-facts.md), use it; else create systemd unit:
 
@@ -784,7 +797,7 @@ WantedBy=multi-user.target
   (skills symlinked — live immediately; /reload-mcp after config changes; restart service after code changes).
 - Logs: journalctl -u hermes -f (or hermes CLI logs cmd per hermes-facts.md).
 - Kill switch: flip Control row in Notion from any device — Hermes refuses writes.
-- Bot token = one consumer: never run Mac + box gateways simultaneously.
+- Two bots: PROD token on the box only; Mac dev/testing uses the DEV bot (.env.dev). Never put the prod token on the Mac.
 - Secrets rotation: edit .env on box → ./setup.sh → restart service.
 - Recovery: new machine → clone → .env → ./setup.sh → hermes setup (gateway) → browser logins → crons.
 - Weekly: skim Change Log rows (Source=Hermes) — the audit trail IS the trust dial; widen autonomy

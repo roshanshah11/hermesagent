@@ -21,6 +21,21 @@ COMPAQ (always-on orchestrator — light 80%)          MAC (heavy worker — 20%
 
 ---
 
+### Task 0: ⛔ THE MEMORY GATE — can the E-300 even run Hermes? (single biggest unvalidated assumption; run FIRST)
+
+- [ ] **Step 1: Measure.** On the Compaq, after `hermes setup` but with no jobs running:
+  `free -h && ps -o rss=,comm= -p $(pgrep -d, -f hermes) | sort -rn` — record Hermes idle RSS.
+  Then run ONE morning-brief-class task and re-measure peak (`watch -n2 free -h` during the run,
+  or systemd-cgtop if under systemd). Record both in `docs/notes/hermes-facts.md`.
+- [ ] **Step 2: Decide by threshold (usable RAM ≈ 1.6GB after OS):**
+  - Idle ≤700MB and one-task peak ≤1.2GB → **proceed as planned** (light tier local).
+  - Idle >1GB → **the Compaq is a gateway-only relay**: Telegram gateway + crons + queue live here;
+    EVERYTHING (even the light tier) dispatches to the Mac via the heavy-research path. Skip Task 2's
+    crawl4ai/SearXNG installs entirely; ddgs only if it fits. Amend the routing table accordingly and
+    note the demotion in hermes-facts.md — do NOT build seven skills on an assumption this gate refuted.
+  - Between → proceed, but add 512MB+ swap (`fallocate -l 1G /swapfile…`), zram if available, and
+    re-measure under a markets-digest run before trusting crons unattended.
+
 ### Task 1: Brain — NIM Nemotron driver on the Compaq
 
 - [ ] **Step 1: Model selection (decided 2026-06-10 from the live catalog — 76 free endpoint models).**
@@ -44,20 +59,26 @@ COMPAQ (always-on orchestrator — light 80%)          MAC (heavy worker — 20%
   just chat (a driver that fumbles function calling is disqualified regardless of benchmarks).
   Record ids + observed rate behavior in `docs/notes/hermes-facts.md`.
 - [ ] **Step 2: Rate-limit discipline** — add to `config/config.template.yaml` comments + `context/HERMES.md`: `Brain = 40 RPM free tier. Crons must not stampede: stagger schedules ≥5 min apart; on 429, back off 60s and retry ≤3.` If Portal quick-setup was already completed on the box, keep it as fallback provider — two free brains beat one.
-- [ ] **Step 3: Apply for the 200 RPM bump** (free, NVIDIA developer forums request) — file it early; record outcome.
+- [ ] **Step 3: Apply for the 200 RPM bump — DAY-1 BLOCKER, not "file it early."** The morning window
+  (06:30 brief → 07:05 heartbeat → 07:30 markets → 08:15 email → 08:45 radar) fires multi-call agent
+  loops against a 40 RPM ceiling; the bump is what makes the cron schedule viable. File the request
+  (free, NVIDIA developer forums) before registering the full cron set; until granted, run REDUCED
+  crons (brief + heartbeat only) and enforce: **no two crons start within 15 min of each other in the
+  06:00–09:00 window.** Record outcome in hermes-facts.md.
 - [ ] **Step 4: Commit** — `git add config/ context/ docs/notes/ && git commit -m "feat(arch): NIM Nemotron driver + rate discipline"`
 
 ### Task 2: Light search/extract on the Compaq (no browser, no keys)
 
 - [ ] **Step 1: ddgs (primary, zero-infra)** — `pip install ddgs` in Hermes's venv; smoke test: 3-result query from Python. This is the default search for ALL Compaq-local jobs.
 - [ ] **Step 2: crawl4ai HTTP-only (extract)** — `pip install crawl4ai` configured with the **HTTPCrawlerStrategy** (no Playwright install on the Compaq — 2GB cannot hold Chromium; enforce by NOT running `crawl4ai-setup` browser step). Use for static-page extraction → markdown. Optionally install the packaged skill for reference: `npx skills add lancelin111/crawl4ai-skill -g -y`.
-- [ ] **Step 3: Lightpanda (Tier-2, beta — JS-needing-but-NOT-SPA pages)** — install on the Compaq:
-  `curl -fsSL https://pkg.lightpanda.io/install.sh | bash`. **AVX caveat first:** the AMD E-300 has no
-  AVX — run `lightpanda version`; if `illegal instruction`, Lightpanda is OFF for this box (skip this
-  step entirely; the ladder is then Tier-1 → Mac). If it runs: start serve mode as a local CDP endpoint
-  (systemd unit, `lightpanda serve --host 127.0.0.1 --port 9222`), point the Playwright client at it via
-  `connect_over_cdp("ws://127.0.0.1:9222")`. **Treat as beta:** expect silent empty DOMs on heavy SPAs —
-  NEVER route LinkedIn/SPA jobs here.
+- [ ] **Step 3: Lightpanda probe (Tier-2 — PROBABLY DEAD on this box; spend 2 minutes, not an hour).**
+  The AMD E-300 has no AVX and Lightpanda is V8-based — expect `illegal instruction`. Probe ONLY:
+  `curl -fsSL https://pkg.lightpanda.io/install.sh | bash && lightpanda version`. If it crashes (the
+  likely outcome): Tier 2 does not exist on this hardware — the ladder is **Tier 1 → Mac, period**;
+  record in hermes-facts.md, delete the binary, write NO systemd unit, NO CDP wiring, NO Tier-2
+  routing logic. Only if it runs cleanly: wire serve mode (`lightpanda serve --host 127.0.0.1 --port
+  9222`, Playwright `connect_over_cdp`) for JS-needing-but-NOT-SPA pages — beta, empty DOM = miss,
+  never LinkedIn/SPAs.
 - [ ] **Step 4: SearXNG (optional, only if free RAM >700MB measured)** — `docker compose` per [selfhosting guide](https://selfhosting.sh/apps/searxng/); 256–512MB budget; if RAM is tight, SKIP — ddgs suffices.
 - [ ] **Step 5: Wire as tools** per hermes-facts.md (Hermes native search config or a 30-line stdio MCP wrapping ddgs+crawl4ai+Lightpanda, same pattern as notion_v3_mcp.py). Encode the extraction ladder in the tool itself: **Tier 1 crawl4ai-HTTP (default) → Tier 2 Lightpanda CDP (only if installed; JS-needing, non-SPA) → Tier 3 escalate to heavy-research (Mac)**. A Lightpanda result that is empty/near-empty DOM = a MISS, not an answer → auto-fall through to Tier 3 (or queue). Never let a Tier-2 miss fail a task silently.
 - [ ] **Step 6: Test the ladder** — Compaq-local: (a) static page → Tier 1 answers, no browser process; (b) a JS-rendered non-SPA page → Tier 2 returns DOM; (c) a LinkedIn URL → tool refuses Tier 2 and routes Tier 3; (d) kill Lightpanda mid-run → Tier 2 miss degrades to Tier 3/queue, task still completes or queues cleanly. RAM stays <80% throughout.
@@ -67,7 +88,18 @@ COMPAQ (always-on orchestrator — light 80%)          MAC (heavy worker — 20%
 
 **Files:** Create: `skills/heavy-research/SKILL.md`, `context/HEAVY-WORKER.md`
 
-- [ ] **Step 1: Mac-side prep** — SSH key from Compaq authorized on the Mac (Roshan: System Settings → Sharing → Remote Login; he set up SSH already). Verify from Compaq: `ssh mac 'claude --version && agent-browser --help | head -3'`. Awake policy = Roshan's call: `sudo pmset repeat wakeorpoweron MTWRFSU 06:00:00` or leave best-effort.
+- [ ] **Step 1: Mac-side prep — HARD GATE, not a checklist item.** SSH key from Compaq authorized on
+  the Mac (System Settings → Sharing → Remote Login; he set up SSH already). Then from the Compaq:
+  `ssh mac 'claude --version && agent-browser --help | head -3'` — **BOTH must succeed before any
+  skill that routes Tier-3 ships.** If `agent-browser` is missing, install it on the Mac first —
+  without it, banker-sourcing has NO browser path at all (the routing table treats Mac browsing as
+  guaranteed; this gate is what makes that true).
+  **Awake policy (decide now, not after the first thin 6:30 brief):** the Compaq's highest-value jobs
+  all dispatch here — the always-on agent is only as capable as the Mac's sleep schedule. Recommended:
+  `sudo pmset repeat wakeorpoweron MTWRFSU 06:00:00` + evening availability (his usage windows
+  06:00–08:00 + 21:00–01:30), or accept best-effort with eyes open.
+  **Path convention note:** `~/work/dispatch` lives on the MAC (this plan); `~/work/<repo>` lives on
+  the BOX (Plan 05 coding-pr). Same convention, different machines — don't conflate.
 - [ ] **Step 2: Write `context/HEAVY-WORKER.md`** — the dispatch contract:
 
 ```markdown
