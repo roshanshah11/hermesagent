@@ -177,3 +177,9 @@ mcp_servers:
     Treat the doctor warning as a false-positive lint until the live /v1/models check at key time.
 15. Telegram config.yaml block: NOT needed (env-only). config.yaml `telegram:` exists only for
     proxy/local-bot-api extras; `platforms.telegram.extra` for large-file local server.
+16. Extract ladder shipped as `mcp/extract_ladder_mcp.py` (runs under the HERMES VENV python —
+    crawl4ai lives there; bare python3 would not see it). Validated on Mac 2026-06-10:
+    example.com → tier 1 (165 chars) · docs.crawl4ai.com → tier 1 (13.5k chars) · LinkedIn →
+    tier 3 escalate_heavy_research. Tier 2 activates only when LIGHTPANDA_CDP_URL is set
+    (box probe at deploy). uv venvs have no pip — all venv installs go through
+    `~/.hermes/bin/uv pip install --python <venv-python>`.

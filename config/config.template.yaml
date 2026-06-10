@@ -64,6 +64,15 @@ mcp_servers:
     args: ["/Users/roshanshah1/Downloads/hermesagent/mcp/notion_v3_mcp.py"]
     enabled: true
     timeout: 120
+  # Extraction ladder (Plan 14): Tier 1 crawl4ai-HTTP -> Tier 2 Lightpanda CDP (box
+  # probe decides; set LIGHTPANDA_CDP_URL in ~/.hermes/.env only if the probe passed)
+  # -> Tier 3 escalate to heavy-research. Runs under the HERMES VENV python because
+  # crawl4ai is installed there (setup.sh); stdlib fallback keeps it alive regardless.
+  extract-ladder:
+    command: "/Users/roshanshah1/.hermes/hermes-agent/venv/bin/python"
+    args: ["/Users/roshanshah1/Downloads/hermesagent/mcp/extract_ladder_mcp.py"]
+    enabled: true
+    timeout: 90
 
 # =============================================================================
 # Telegram — configured ENTIRELY via ~/.hermes/.env (TELEGRAM_BOT_TOKEN,

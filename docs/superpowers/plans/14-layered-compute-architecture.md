@@ -69,8 +69,14 @@ COMPAQ (always-on orchestrator — light 80%)          MAC (heavy worker — 20%
 
 ### Task 2: Light search/extract on the Compaq (no browser, no keys)
 
+> 2026-06-10 Mac dry-run status: ddgs is Hermes-NATIVE (web.search_backend=ddgs — no custom MCP
+> needed for search); extract ladder shipped as `mcp/extract_ladder_mcp.py` (Tier 1 crawl4ai-HTTP
+> validated live on Mac · Tier 2 gated behind LIGHTPANDA_CDP_URL pending the box probe · Tier 3
+> returns `escalate_heavy_research`); setup.sh pre-seeds ddgs+crawl4ai into the venv (NEVER runs
+> crawl4ai-setup). Steps 3/4/6 are box-only — run at deploy.
+
 - [x] **Step 1: ddgs (primary, zero-infra)** — `pip install ddgs` in Hermes's venv; smoke test: 3-result query from Python. This is the default search for ALL Compaq-local jobs.
-- [ ] **Step 2: crawl4ai HTTP-only (extract)** — `pip install crawl4ai` configured with the **HTTPCrawlerStrategy** (no Playwright install on the Compaq — 2GB cannot hold Chromium; enforce by NOT running `crawl4ai-setup` browser step). Use for static-page extraction → markdown. Optionally install the packaged skill for reference: `npx skills add lancelin111/crawl4ai-skill -g -y`.
+- [x] **Step 2: crawl4ai HTTP-only (extract)** — `pip install crawl4ai` configured with the **HTTPCrawlerStrategy** (no Playwright install on the Compaq — 2GB cannot hold Chromium; enforce by NOT running `crawl4ai-setup` browser step). Use for static-page extraction → markdown. Optionally install the packaged skill for reference: `npx skills add lancelin111/crawl4ai-skill -g -y`.
 - [ ] **Step 3: Lightpanda probe (Tier-2 — PROBABLY DEAD on this box; spend 2 minutes, not an hour).**
   The AMD E-300 has no AVX and Lightpanda is V8-based — expect `illegal instruction`. Probe ONLY:
   `curl -fsSL https://pkg.lightpanda.io/install.sh | bash && lightpanda version`. If it crashes (the
@@ -80,7 +86,7 @@ COMPAQ (always-on orchestrator — light 80%)          MAC (heavy worker — 20%
   9222`, Playwright `connect_over_cdp`) for JS-needing-but-NOT-SPA pages — beta, empty DOM = miss,
   never LinkedIn/SPAs.
 - [ ] **Step 4: SearXNG (optional, only if free RAM >700MB measured)** — `docker compose` per [selfhosting guide](https://selfhosting.sh/apps/searxng/); 256–512MB budget; if RAM is tight, SKIP — ddgs suffices.
-- [ ] **Step 5: Wire as tools** per hermes-facts.md (Hermes native search config or a 30-line stdio MCP wrapping ddgs+crawl4ai+Lightpanda, same pattern as notion_v3_mcp.py). Encode the extraction ladder in the tool itself: **Tier 1 crawl4ai-HTTP (default) → Tier 2 Lightpanda CDP (only if installed; JS-needing, non-SPA) → Tier 3 escalate to heavy-research (Mac)**. A Lightpanda result that is empty/near-empty DOM = a MISS, not an answer → auto-fall through to Tier 3 (or queue). Never let a Tier-2 miss fail a task silently.
+- [x] **Step 5: Wire as tools** per hermes-facts.md (Hermes native search config or a 30-line stdio MCP wrapping ddgs+crawl4ai+Lightpanda, same pattern as notion_v3_mcp.py). Encode the extraction ladder in the tool itself: **Tier 1 crawl4ai-HTTP (default) → Tier 2 Lightpanda CDP (only if installed; JS-needing, non-SPA) → Tier 3 escalate to heavy-research (Mac)**. A Lightpanda result that is empty/near-empty DOM = a MISS, not an answer → auto-fall through to Tier 3 (or queue). Never let a Tier-2 miss fail a task silently.
 - [ ] **Step 6: Test the ladder** — Compaq-local: (a) static page → Tier 1 answers, no browser process; (b) a JS-rendered non-SPA page → Tier 2 returns DOM; (c) a LinkedIn URL → tool refuses Tier 2 and routes Tier 3; (d) kill Lightpanda mid-run → Tier 2 miss degrades to Tier 3/queue, task still completes or queues cleanly. RAM stays <80% throughout.
 - [ ] **Step 7: Commit** — `git add mcp/ config/ && git commit -m "feat(arch): Compaq extraction ladder — HTTP -> Lightpanda -> Mac dispatch"`
 

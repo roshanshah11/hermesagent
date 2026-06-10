@@ -35,9 +35,10 @@ hermes --version | head -1
 echo "==> [3/8] Config: render template -> $HERMES_HOME/config.yaml (backup kept)"
 [[ -f "$HERMES_HOME/config.yaml" ]] && cp "$HERMES_HOME/config.yaml" "$HERMES_HOME/config.yaml.bak.$(date +%s)"
 python3 - "$REPO_DIR/config/config.template.yaml" "$HERMES_HOME/config.yaml" "$REPO_DIR" <<'PY'
-import sys
+import os, sys
 tpl, out, repo = sys.argv[1], sys.argv[2], sys.argv[3]
 text = open(tpl).read().replace("/Users/roshanshah1/Downloads/hermesagent", repo)
+text = text.replace("/Users/roshanshah1", os.path.expanduser("~"))  # venv python path etc.
 open(out, "w").write(text)
 print(f"    wrote {out}")
 PY
@@ -88,10 +89,12 @@ echo "==> [7/8] Persona: install context/HERMES.md -> $HERMES_HOME/SOUL.md (+ re
   echo "(skills/ · context/notion-ids.md · context/voice/ · crons/crons.md). Repo is source of truth."; } \
   > "$HERMES_HOME/SOUL.md"
 
-echo "==> [8/8] Pre-seed ddgs (search backend) in the Hermes venv"
+echo "==> [8/8] Pre-seed search/extract deps in the Hermes venv (ddgs + crawl4ai HTTP-only)"
 # uv-created venvs ship without pip — use the managed uv against the venv python.
-"$HERMES_HOME/bin/uv" pip install --python "$HERMES_HOME/hermes-agent/venv/bin/python" -q ddgs \
-  && echo "    ddgs OK" || echo "    WARN: ddgs install failed (lazy-install will retry on first use)"
+# crawl4ai: pip install ONLY — NEVER run 'crawl4ai-setup' (that downloads Chromium;
+# the 2GB box must stay browser-free; the extract-ladder MCP uses the HTTP strategy).
+"$HERMES_HOME/bin/uv" pip install --python "$HERMES_HOME/hermes-agent/venv/bin/python" -q ddgs crawl4ai \
+  && echo "    ddgs + crawl4ai OK" || echo "    WARN: install failed (extract-ladder degrades to stdlib; ddgs lazy-installs)"
 
 echo
 echo "DONE. Next steps:"
