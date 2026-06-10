@@ -11,7 +11,8 @@ COMPAQ (always-on orchestrator — light 80%)          MAC (heavy worker — 20%
 ├─ Hermes Agent + Telegram gateway                   ├─ Claude Code headless (claude -p)
 ├─ Brain: NIM free tier (Nemotron driver, 40 RPM)    │   └─ WebSearch/WebFetch/agent-browser CLI
 ├─ Search: ddgs (zero-infra) [+SearXNG if RAM]       │   └─ full skill ecosystem (deep-research…)
-├─ Extract: crawl4ai HTTP-only strategy (no browser) ├─ Reached via Tailscale SSH
+├─ Extract ladder: crawl4ai HTTP (T1) →              ├─ Reached via Tailscale SSH
+│    Lightpanda CDP (T2, beta, non-SPA, if no-AVX OK) → Mac dispatch (T3)
 ├─ Notion MCP · crons · queue (SQLite/file)          └─ Awake-policy: pmset/caffeinate (his call)
 └─ Jobs: briefs, triage, watchdogs, drafts, digests
 ```
@@ -31,10 +32,17 @@ COMPAQ (always-on orchestrator — light 80%)          MAC (heavy worker — 20%
 
 - [ ] **Step 1: ddgs (primary, zero-infra)** — `pip install ddgs` in Hermes's venv; smoke test: 3-result query from Python. This is the default search for ALL Compaq-local jobs.
 - [ ] **Step 2: crawl4ai HTTP-only (extract)** — `pip install crawl4ai` configured with the **HTTPCrawlerStrategy** (no Playwright install on the Compaq — 2GB cannot hold Chromium; enforce by NOT running `crawl4ai-setup` browser step). Use for static-page extraction → markdown. Optionally install the packaged skill for reference: `npx skills add lancelin111/crawl4ai-skill -g -y`.
-- [ ] **Step 3: SearXNG (optional, only if free RAM >700MB measured)** — `docker compose` per [selfhosting guide](https://selfhosting.sh/apps/searxng/); 256–512MB budget; if RAM is tight, SKIP — ddgs suffices.
-- [ ] **Step 4: Wire as tools** per hermes-facts.md (Hermes native search config or a 30-line stdio MCP wrapping ddgs+crawl4ai, same pattern as notion_v3_mcp.py).
-- [ ] **Step 5: Test** — Compaq-local: `search who is the CEO of <company> and extract their bio page` → works with NO browser process, RAM stays <80%.
-- [ ] **Step 6: Commit** — `git add mcp/ config/ && git commit -m "feat(arch): Compaq-local search/extract — ddgs + crawl4ai HTTP-only"`
+- [ ] **Step 3: Lightpanda (Tier-2, beta — JS-needing-but-NOT-SPA pages)** — install on the Compaq:
+  `curl -fsSL https://pkg.lightpanda.io/install.sh | bash`. **AVX caveat first:** the AMD E-300 has no
+  AVX — run `lightpanda version`; if `illegal instruction`, Lightpanda is OFF for this box (skip this
+  step entirely; the ladder is then Tier-1 → Mac). If it runs: start serve mode as a local CDP endpoint
+  (systemd unit, `lightpanda serve --host 127.0.0.1 --port 9222`), point the Playwright client at it via
+  `connect_over_cdp("ws://127.0.0.1:9222")`. **Treat as beta:** expect silent empty DOMs on heavy SPAs —
+  NEVER route LinkedIn/SPA jobs here.
+- [ ] **Step 4: SearXNG (optional, only if free RAM >700MB measured)** — `docker compose` per [selfhosting guide](https://selfhosting.sh/apps/searxng/); 256–512MB budget; if RAM is tight, SKIP — ddgs suffices.
+- [ ] **Step 5: Wire as tools** per hermes-facts.md (Hermes native search config or a 30-line stdio MCP wrapping ddgs+crawl4ai+Lightpanda, same pattern as notion_v3_mcp.py). Encode the extraction ladder in the tool itself: **Tier 1 crawl4ai-HTTP (default) → Tier 2 Lightpanda CDP (only if installed; JS-needing, non-SPA) → Tier 3 escalate to heavy-research (Mac)**. A Lightpanda result that is empty/near-empty DOM = a MISS, not an answer → auto-fall through to Tier 3 (or queue). Never let a Tier-2 miss fail a task silently.
+- [ ] **Step 6: Test the ladder** — Compaq-local: (a) static page → Tier 1 answers, no browser process; (b) a JS-rendered non-SPA page → Tier 2 returns DOM; (c) a LinkedIn URL → tool refuses Tier 2 and routes Tier 3; (d) kill Lightpanda mid-run → Tier 2 miss degrades to Tier 3/queue, task still completes or queues cleanly. RAM stays <80% throughout.
+- [ ] **Step 7: Commit** — `git add mcp/ config/ && git commit -m "feat(arch): Compaq extraction ladder — HTTP -> Lightpanda -> Mac dispatch"`
 
 ### Task 3: `heavy_research` dispatch — SSH → Claude Code on the Mac
 
@@ -90,6 +98,9 @@ MAC-DISPATCH (heavy 20%, via heavy-research): research-dossier · banker-sourcin
 pre-meeting-brief enrichment when the person is thin on ddgs · prof-monitor deep checks · any job
 you judge needs agentic browsing or frontier depth. When in doubt: try local first; escalate if the
 rubric fails on local output.
+EXTRACTION LADDER (within any Compaq-local job): Tier 1 crawl4ai-HTTP (default) → Tier 2 Lightpanda
+CDP (beta; JS-needing, non-SPA ONLY — never LinkedIn/SPAs; empty DOM = miss) → Tier 3 Mac dispatch.
+Misses fall through; they never silently fail a task.
 ```
 
 - [ ] **Step 2: Commit + update master plan row + spec decision table** (inference row → "Layered: NIM Nemotron (Compaq) + Claude Code heavy worker (Mac, best-effort)"; browser row → "Mac side via agent-browser/Claude Code; Compaq runs NO browser").
