@@ -292,7 +292,7 @@ Expected: JSON with `"READY"` in content. If model id 404s: `curl -s https://int
 Run: `hermes` (CLI chat) → ask: `What model are you running on? Reply in one line.`
 Expected: a response (content may vary); no auth/model errors in output.
 
-- [ ] **Step 3: Start `config/config.template.yaml`** — copy the provider block from `~/.hermes/config.yaml`, replacing the literal key with `${NVIDIA_API_KEY}` and adding a comment `# setup.sh substitutes from .env`. Commit:
+- [x] **Step 3: Start `config/config.template.yaml`** — copy the provider block from `~/.hermes/config.yaml`, replacing the literal key with `${NVIDIA_API_KEY}` and adding a comment `# setup.sh substitutes from .env`. Commit:
 
 ```bash
 git add config/config.template.yaml
@@ -308,12 +308,12 @@ git commit -m "feat: provider config template — NIM custom endpoint"
 **Files:**
 - Verify: `mcp/notion_v3.py` (reads `.env` beside it — confirm path logic)
 
-- [ ] **Step 1: Confirm how the client finds creds**
+- [x] **Step 1: Confirm how the client finds creds**
 
 Run: `rg -n "env|getenv|\.env" mcp/notion_v3.py | head -20`
 Expected: it reads `.env` from its own directory and/or `os.environ`. Whichever holds, the config `env:` block (Step 2) passes vars explicitly — stdio servers only get configured env vars (verified platform fact).
 
-- [ ] **Step 2: Add the server to `~/.hermes/config.yaml`** (and mirror into `config/config.template.yaml`):
+- [x] **Step 2: Add the server to `~/.hermes/config.yaml`** (and mirror into `config/config.template.yaml`):
 
 ```yaml
 mcp_servers:
@@ -337,7 +337,7 @@ Expected: 7 tools (`enumerate_rows`, `read_record`, `collection_schema`, `set_pa
 Ask Hermes: `Using mcp_notion-v3_notion_enumerate_rows with collection_id cae4bcc3-c36d-4b78-9653-578fb735fd99 and view_id f0a2583d-ce2f-4e41-bfad-22aa291d4e18, how many alive rows are in my Tasks DB? Reply with the number only.`
 Expected: ~213 (matches the Notion project's count). **This is the moment Hermes gains Notion hands.**
 
-- [ ] **Step 5: Commit template**
+- [x] **Step 5: Commit template**
 
 ```bash
 git add config/config.template.yaml

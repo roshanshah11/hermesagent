@@ -1,0 +1,72 @@
+# Hermes Environment Pack — config template (rendered to ~/.hermes/config.yaml by setup.sh)
+#
+# NO SECRETS HERE. All credentials live in ~/.hermes/.env (merged from repo .env by setup.sh):
+#   NVIDIA_API_KEY · TELEGRAM_BOT_TOKEN · TELEGRAM_ALLOWED_USERS · TELEGRAM_HOME_CHANNEL
+# Env vars take precedence over config.yaml (verified hermes-facts.md).
+# Path note: setup.sh replaces the literal repo path below with the cloned location.
+# Schema source: docs/notes/hermes-facts.md (verified against installed v0.16.0).
+
+# Config schema version (silences "config outdated" migrations; matches installed v0.16.0)
+_config_version: 29
+
+# =============================================================================
+# Brain — NVIDIA NIM free tier (Plan 14: Nemotron 3 Super driver)
+# Rate discipline: free tier = 40 RPM (200 on request). Crons must not stampede:
+# stagger schedules ≥15 min apart in the 06:00–09:00 window until the 200 RPM
+# bump is granted; on 429 Hermes retries then falls back (fallback_providers).
+# =============================================================================
+model:
+  provider: "nvidia"
+  default: "nvidia/nemotron-3-super-120b-a12b"   # DRIVER — agentic/tool-calling MoE (fast, 12B active)
+
+# Fallback chain (tried in order on 429/5xx/timeout):
+#   deepseek-v4-flash — fast fallback when the driver rate-limits or flakes.
+# DEEP ESCALATION (deadline forces local depth while Mac asleep): swap default to
+#   deepseek-ai/deepseek-v4-pro for the one job, then swap back (see heavy-research skill).
+# Exact catalog ids re-verified at key time: curl /v1/models (see hermes-facts.md).
+fallback_providers:
+  - provider: nvidia
+    model: deepseek-ai/deepseek-v4-flash
+
+agent:
+  max_turns: 60
+  reasoning_effort: "medium"
+  # Fast failover: SDK retries underneath; keep Hermes-level retries low so the
+  # fallback provider engages quickly when NIM 429s.
+  api_max_retries: 2
+
+# =============================================================================
+# Web search / extract (Plan 14: $0, keyless on the always-on box)
+# search = ddgs (DuckDuckGo, no key, lazy-installed). extract intentionally unset:
+# light extraction uses the crawl4ai ladder / Mac dispatch (heavy-research skill);
+# web_extract falls back to auto-detect if a key is ever added to .env.
+# =============================================================================
+web:
+  search_backend: "ddgs"
+
+# =============================================================================
+# Skills — this repo IS the source of truth (read-only external dir; local
+# ~/.hermes/skills/ wins name collisions; Hermes self-created skills stay local
+# until promoted into the repo via Plan 09 review).
+# =============================================================================
+skills:
+  external_dirs:
+    - "/Users/roshanshah1/Downloads/hermesagent/skills"
+
+# =============================================================================
+# MCP — validated notion-v3 stdio server (private api/v3).
+# Credentials: the server reads NOTION_* from mcp/.env BESIDE ITSELF (written by
+# setup.sh, gitignored) — not from this env block. stdlib-only, zero pip deps.
+# =============================================================================
+mcp_servers:
+  notion-v3:
+    command: "python3"
+    args: ["/Users/roshanshah1/Downloads/hermesagent/mcp/notion_v3_mcp.py"]
+    enabled: true
+    timeout: 120
+
+# =============================================================================
+# Telegram — configured ENTIRELY via ~/.hermes/.env (TELEGRAM_BOT_TOKEN,
+# TELEGRAM_ALLOWED_USERS, TELEGRAM_HOME_CHANNEL). No config block needed.
+# Gateway service: `hermes gateway install` (launchd/systemd) per hermes-facts.md.
+# =============================================================================

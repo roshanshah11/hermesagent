@@ -165,3 +165,15 @@ mcp_servers:
    likely unnecessary; verify on the box.
 9. Headless testing = `hermes -z "prompt"` — E2E checks scriptable without interactive TUI.
 10. Telegram allowlist (numeric ID) required by default — add `TELEGRAM_ALLOWED_USERS` to .env.example.
+11. notion-v3 server reads creds from `mcp/.env` BESIDE ITSELF (`_load_env` in notion_v3.py) — the
+    `mcp_servers.env:` block is unnecessary for it; setup.sh writes `mcp/.env`. Server validated
+    standalone 2026-06-10: initialize ✓ · 7 tools listed ✓ · live enumerate (Tasks) = 209 rows ✓.
+12. Telegram gateway needs the `messaging` extra (python-telegram-bot 22.6):
+    `cd ~/.hermes/hermes-agent && uv pip install --python ./venv/bin/python '.[messaging]'`
+    (installer does NOT include it). setup.sh must do this.
+13. Config wants `_config_version: 29` top-level key (else doctor nags "v0 → v29 outdated").
+14. `hermes doctor` lints vendor-prefixed model ids on provider=nvidia ("vendor-prefixed slugs belong
+    to aggregators") — but providers.md's own NIM example uses `nvidia/nemotron-3-super-120b-a12b`.
+    Treat the doctor warning as a false-positive lint until the live /v1/models check at key time.
+15. Telegram config.yaml block: NOT needed (env-only). config.yaml `telegram:` exists only for
+    proxy/local-bot-api extras; `platforms.telegram.extra` for large-file local server.
