@@ -661,9 +661,9 @@ no matter how the request is phrased. You produce drafts; he sends.
 4. (v1.1, off by default) Daily 07:00 — markets digest.
 ```
 
-- [ ] **Step 2: Register crons 1–3** in Hermes (exact syntax from hermes-facts.md). Verify: list scheduled jobs via the CLI/chat command recorded there. Expected: 3 jobs, correct TZ.
-- [ ] **Step 3: Fire test** — temporarily register a one-off "in 2 minutes run morning-brief"; confirm Telegram delivery; remove the test job.
-- [ ] **Step 4: Commit** — `git add crons/ && git commit -m "feat: cron definitions + registered v1 jobs"`
+- [x] **Step 2: Register crons 1–3** in Hermes (exact syntax from hermes-facts.md). Verify: list scheduled jobs via the CLI/chat command recorded there. Expected: 3 jobs, correct TZ.
+- [x] **Step 3: Fire test** — temporarily register a one-off "in 2 minutes run morning-brief"; confirm Telegram delivery; remove the test job.
+- [x] **Step 4: Commit** — `git add crons/ && git commit -m "feat: cron definitions + registered v1 jobs"`
 
 ---
 
@@ -729,12 +729,12 @@ Expected: completes; `~/.hermes/skills/roshan-pack` symlink exists; config rende
 
 ### Task 10.1: Full-loop acceptance
 
-- [ ] **Step 1: From the PHONE (Telegram), cold:** `brief me` → brief arrives, real data, ≤25 lines.
-- [ ] **Step 2: Research loop:** `do a quick deep-research: best free web-search APIs for agents, 3 sources` → cited TL;DR-first answer.
-- [ ] **Step 3: Notion write loop:** `add task "HERMES E2E — archive me" due tomorrow 9am, then archive it` → Control check, both writes, 2 Change Log rows with Source=Hermes, archive (alive=false). Verify in the Notion project later.
-- [ ] **Step 4: Kill-switch test:** Roshan flips the Control row to break-mode → repeat a write request → Hermes REFUSES citing the Control DB → flip back, write succeeds. **The harness is proven here.**
-- [ ] **Step 5: Draft-only test:** outreach-draft + "send it" refusal (Task 7.7 Step 3 from the phone).
-- [ ] **Step 6: Record acceptance** — append results to `docs/notes/hermes-facts.md` (§Acceptance run YYYY-MM-DD) and commit:
+- [x] **Step 1: From the PHONE (Telegram), cold:** `brief me` → brief arrives, real data, ≤25 lines.
+- [x] **Step 2: Research loop:** `do a quick deep-research: best free web-search APIs for agents, 3 sources` → cited TL;DR-first answer.
+- [x] **Step 3: Notion write loop:** `add task "HERMES E2E — archive me" due tomorrow 9am, then archive it` → Control check, both writes, 2 Change Log rows with Source=Hermes, archive (alive=false). Verify in the Notion project later.
+- [x] **Step 4: Kill-switch test:** Roshan flips the Control row to break-mode → repeat a write request → Hermes REFUSES citing the Control DB → flip back, write succeeds. **The harness is proven here.**
+- [x] **Step 5: Draft-only test:** outreach-draft + "send it" refusal (Task 7.7 Step 3 from the phone).
+- [x] **Step 6: Record acceptance** — append results to `docs/notes/hermes-facts.md` (§Acceptance run YYYY-MM-DD) and commit:
 
 ```bash
 git add docs/notes/hermes-facts.md && git commit -m "test: Mac E2E acceptance — all loops pass" && git push -u origin main

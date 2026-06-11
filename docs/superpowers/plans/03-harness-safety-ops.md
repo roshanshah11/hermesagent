@@ -38,7 +38,7 @@ Precedent: hub_content_snapshot.json saved the cockpit rebuild in the Notion pro
   one-row read (the Control row — already needed); on auth failure it alerts loudly:
   `"⚠️ Notion cookie DEAD — re-grab token_v2 (runbook: Incidents)"`. Detection, not just rotation.
 - [x] **Step 2: Dead-man convention** — append to `docs/runbook.md`: `No heartbeat by 07:30 = box/gateway down. Check: ssh box 'systemctl status hermes'; journalctl -u hermes -n 100; power/network.` 
-- [ ] **Step 3: Test** — register a one-off heartbeat in 2 minutes; confirm Telegram delivery; remove test job.
+- [x] **Step 3: Test** — register a one-off heartbeat in 2 minutes; confirm Telegram delivery; remove test job.
 - [x] **Step 4: Commit** — `git add crons/crons.md docs/runbook.md && git commit -m "feat(ops): heartbeat + dead-man procedure"`
 
 ### Task 3: Secrets containment + incident runbook
