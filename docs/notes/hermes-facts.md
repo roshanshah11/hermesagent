@@ -209,3 +209,11 @@ mcp_servers:
     true (first-token message + progressive edits; final edit MarkdownV2), agent.gateway_notify_interval
     60 (default 180), display.platforms.telegram.cleanup_progress true. hooks_auto_accept relates to
     shell-script hooks only (separate system). subagent_auto_approve exists for subagent prompts.
+21. THE 79-MINUTE TASK-ADD (2026-06-10 19:31→20:50, live): root cause = reasoning_effort "medium"
+    produced 200-617KB thinking streams; NIM free tier ReadTimeouts streams at ~150s; each drop
+    re-burns the full generation (3 stream retries + 2 app retries). Fix shipped: reasoning_effort
+    "low" + skills.creation_nudge_interval 0 (the nudge had the agent editing repo skill files
+    MID-TASK — first live self-learning event; curated via agent-proposals/, pitfall promoted,
+    whole-properties-set rejected). Also: agent drove notion_v3.py via execute_code instead of MCP
+    tools (works, bypasses MCP logging); context compression rebadges session ids mid-run
+    (137→38 msgs); a post-response loop kept burning 103k-token calls until gateway restart.

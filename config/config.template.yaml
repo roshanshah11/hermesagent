@@ -30,7 +30,11 @@ fallback_providers:
 
 agent:
   max_turns: 60
-  reasoning_effort: "medium"
+  # LOW after the 2026-06-10 live finding: medium produced 200-600KB thinking
+  # streams that NIM free tier drops at ~150s (ReadTimeout), forcing full-stream
+  # retries — a simple task-add took 79 min. The driver is an orchestrator:
+  # latency > depth (Plan 14); depth lives in heavy-research dispatch.
+  reasoning_effort: "low"
   # Fast failover: SDK retries underneath; keep Hermes-level retries low so the
   # fallback provider engages quickly when NIM 429s.
   api_max_retries: 2
@@ -67,6 +71,10 @@ web:
 skills:
   external_dirs:
     - "/Users/roshanshah1/Downloads/hermesagent/skills"
+  # OFF for now: the nudge made the agent self-edit repo skill files MID-TASK
+  # (2026-06-10, during the 79-min write-test) and extended an already-thrashing
+  # run. Plan 09 reintroduces self-learning with a review/promote flow.
+  creation_nudge_interval: 0
 
 # =============================================================================
 # MCP — validated notion-v3 stdio server (private api/v3).

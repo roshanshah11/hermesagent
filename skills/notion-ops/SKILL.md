@@ -1,7 +1,7 @@
 ---
 name: notion-ops
 description: REQUIRED foundation for ANY write to Roshan's Notion — safety protocol, conventions, IDs. Load before any notion-v3 write tool call.
-version: 0.1.0
+version: 0.2.1
 ---
 # Notion Ops — conventions for Roshan's workspace
 
@@ -20,13 +20,16 @@ version: 0.1.0
 
 ## Conventions (violations corrupt his system)
 - ARCHIVE, never delete: set alive=false (rows) or move to Archive page `377b67c2-a997-8190-a880-d5244ddeb4a7`.
-- Timed rows: explicit offset (-04:00 EDT / -05:00 EST). NEVER naive datetimes (Notion treats as UTC).
+- Timed rows: explicit offset (-04:00 EDT / -05:00 EST) or the time_zone date field. NEVER naive datetimes.
 - `When` formula is computed from `Due` — recompute yourself when reasoning about urgency.
 - Row enumeration: notion_enumerate_rows (official API caps ~25).
 - Records double-wrap: recordMap[table][id].value.value. queryCollection has no total — use high limit.
 - Bulk writes: ≤15 rows per batch, pace larger jobs. syncRecordValuesSpace 502s sometimes — retry.
 - WRITE SHAPES: use the verified op recipes in references/write-recipes.md (this skill's dir) for
-  row creation, dates, selects, relations, and archiving — do NOT improvise transaction structures.
+  row creation, updates to existing rows, dates, selects, relations, and archiving — do NOT
+  improvise transaction structures. Pitfall (learned live 2026-06-10): paths like ["value","value"]
+  fail with ancestor-path errors; property writes target ["properties","<PROP_ID>"] per property —
+  never set the whole ["properties"] object (it clobbers concurrent edits to other properties).
 - All IDs: context/notion-ids.md in the environment-pack repo.
 
 ## Division of labor

@@ -1,7 +1,17 @@
 # Verified api/v3 write recipes (derived + readback-verified live, 2026-06-10)
 
 These are the EXACT op shapes that work. Use notion_save_transactions with these; do not improvise
-transaction structures ("Invalid ancestor path" = you omitted the parent update op or space_id).
+transaction structures ("Invalid ancestor path" = you omitted the parent update op or space_id on
+creation, or used a bad path like ["value","value"] — property writes always target
+["properties","<PROP_ID>"]).
+
+## Update a property on an EXISTING row (per-property — safe under concurrency)
+One op per property; never set the whole ["properties"] object (clobbers other props):
+```json
+[{"pointer":{"table":"block","id":"<ROW_ID>","spaceId":"<SPACE>"},
+  "path":["properties","<PROP_ID>"],"command":"set","args":[["<NEW VALUE>"]]}]
+```
+Value shapes per type are listed below; verify with a readback (protocol step 4).
 
 ## Create a row in any collection
 ```json
