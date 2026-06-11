@@ -256,3 +256,8 @@ mcp_servers:
     AI-safety x quant angle, live URL). prof-monitor functional after the view-id registry fix.
 29. SIM 7 EOD-WRAP (2026-06-10 23:10): PASS in 179s on first run — done/open/decisions/preview
     contract, honest "none" entries, Change Log correctly read as the done-source.
+30. SIM 8 HEAVY-RESEARCH DEGRADE (2026-06-10 23:12): PASS in 55s — probe → honest DOWN → real queue
+    file written (output/queue/) → exact degrade offer, no fake dispatch. Sim artifact deleted after.
+    AGENT-SIDE SIM SUITE COMPLETE: 8/8 pass (write-loop 534s · refusal 29s · research 175s · brief
+    243s · prof-monitor 118s · eod-wrap 179s · degrade 55s · nano-experiment = productive DQ).
+    Remaining Phase-10 items are phone-side (kill-switch, live refusal) + crons.
