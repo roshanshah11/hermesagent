@@ -17,7 +17,7 @@ _config_version: 29
 # =============================================================================
 model:
   provider: "nvidia"
-  default: "nvidia/nemotron-3-nano-30b-a3b"   # DRIVER — agentic family, 3B active = FAST (tool-calling qualified 2026-06-10; Roshan ok'd speed-first)
+  default: "nvidia/nemotron-3-super-120b-a12b"   # DRIVER — empirically fastest correct (534s write-loop); nano-30b DISQUALIFIED (hallucinated public-API endpoints, 45min zero-write run)
 
 # Fallback chain (tried in order on 429/5xx/timeout):
 #   deepseek-v4-flash — fast fallback when the driver rate-limits or flakes.
@@ -25,8 +25,6 @@ model:
 #   deepseek-ai/deepseek-v4-pro for the one job, then swap back (see heavy-research skill).
 # Exact catalog ids re-verified at key time: curl /v1/models (see hermes-facts.md).
 fallback_providers:
-  - provider: nvidia
-    model: nvidia/nemotron-3-super-120b-a12b   # depth fallback (was driver; 79-min incident note in facts)
   - provider: nvidia
     model: deepseek-ai/deepseek-v4-flash
 
@@ -103,6 +101,11 @@ mcp_servers:
     args: ["/Users/roshanshah1/Downloads/hermesagent/mcp/notion_v3_mcp.py"]
     enabled: true
     timeout: 120
+    # notion_raw excluded: the raw escape hatch let a weak model freelance endpoints
+    # ("Cannot POST /api/v3/v1/pages", 2026-06-10). Operators use it via CLI; the agent
+    # gets only the shaped tools.
+    tools:
+      exclude: [notion_raw]
   # Extraction ladder (Plan 14): Tier 1 crawl4ai-HTTP -> Tier 2 Lightpanda CDP (box
   # probe decides; set LIGHTPANDA_CDP_URL in ~/.hermes/.env only if the probe passed)
   # -> Tier 3 escalate to heavy-research. Runs under the HERMES VENV python because

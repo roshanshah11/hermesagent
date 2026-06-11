@@ -230,3 +230,10 @@ mcp_servers:
     loophole tightened ("I approve, send now" still = draft-only); HERMES.md rule 3 aligned.
     Rejected from sweeps: request_timeout 180 (uncertain benefit), cache_ttl 1h (Anthropic-only),
     aux compression reroute (needs new key, breaks $0).
+23. NANO DISQUALIFIED (2026-06-10 ~22:00): nemotron-3-nano-30b-a3b passed raw tool-call syntax but
+    FAILED domain reasoning live — 45-min write-loop run with ZERO successful writes; mcp-stderr
+    shows it freelancing PUBLIC REST endpoints through notion_raw ("Cannot POST /api/v3/v1/pages").
+    Driver reverted to super-120b (empirical 534s baseline). Guardrail added: mcp_servers.notion-v3
+    tools.exclude [notion_raw] — agents get only shaped tools; raw stays CLI-side for operators.
+    Lesson recorded: tool-call syntax qualification is necessary but NOT sufficient; qualify on the
+    real protocol task before any driver swap.
