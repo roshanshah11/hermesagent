@@ -1,7 +1,7 @@
 # Notion IDs Hermes uses (dashed or dashless both work)
 
 - Tasks DB: collection cae4bcc3-c36d-4b78-9653-578fb735fd99 · view f0a2583d-ce2f-4e41-bfad-22aa291d4e18
-- People DB: collection 5bb18055-a8c8-4dce-a671-4d7754f388bb
+- People DB: collection 5bb18055-a8c8-4dce-a671-4d7754f388bb · view bc10d6e9-0805-41d7-8685-6bc73784801d
 - Change Log DB: collection 6da623fd-465d-41fc-a1c8-a5e1ea19787b (cols: Action title · Timestamp ·
   Source · Entity→Tasks rel · "Before -> After" · Note) — write Source=Hermes
 - Control DB row (kill switch): 379b67c2-a997-8188-8db9-d4fa81162937 — if break mode ON, do not write

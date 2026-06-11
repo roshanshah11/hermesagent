@@ -246,3 +246,9 @@ mcp_servers:
     (Citation legend visibility unconfirmed from output tail — re-check on live phone research test.)
 26. SIM 5 MORNING-BRIEF (2026-06-10 22:40): PASS in 243s — full output contract (Top3/timed/overdue/
     deadlines/one suggestion), real rows, <25 lines. Notion read path healthy with notion_raw excluded.
+27. SIM 6 PROF-MONITOR FAIL → FIXED (2026-06-10 22:50): run flailed and leaked scratchpad as final
+    output ("Let's check if there is a .env..."). Root cause: notion-ids.md had People DB collection
+    WITHOUT a view id — enumerate_rows requires one; agent couldn't enumerate and wandered. View
+    discovered live (bc10d6e9-0805-41d7-8685-6bc73784801d, 18 rows incl. the 15 profs) and recorded.
+    Lesson: every DB in the registry needs collection AND view id. Secondary finding: dead-ended
+    runs emit thought-fragments as final text — Telegram voice law (no raw scratchpad) now in SOUL.
