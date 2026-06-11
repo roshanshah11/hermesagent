@@ -39,6 +39,16 @@ hermes cron create "0 8 * * 1" \
 #   --name markets-digest --skill deep-research --deliver telegram
 ```
 
+```bash
+# 5. Weekly spot-audit — Sun 18:00 (Plan 02; register with the v1 batch)
+hermes cron create "0 18 * * 0" \
+  "Spot-audit: pick this week's 2 most consequential deliverables (Change Log Source=Hermes +
+filed dossiers). Send Roshan each with its quality-rubric self-scores and ask: 'Grade these
+1-10. Reply: audit: N N.' On an 'audit:' reply later, record grades in context/trust.md
+§Audit history and propose promotions/demotions per the ledger criteria." \
+  --name spot-audit --skill notion-ops --skill deep-research --deliver telegram
+```
+
 ## Notes
 - ANY new cron (yours or future plans'): keep ≥15 min from existing starts in 06:00–09:00 ET.
 - `--repeat 1` semantics unverified (1 total vs 1+initial) — verify on the fire test and record here.
