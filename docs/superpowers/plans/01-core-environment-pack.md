@@ -484,7 +484,7 @@ File full output to the relevant Notion area page (notion-ops protocol) as a sub
 send TL;DR + link via Telegram. Long dossiers never get pasted whole into chat.
 ```
 
-- [ ] **Step 2: Test** — `/deep-research What are NVIDIA NIM's free-tier rate limits and which large open reasoning models does it host?` Expected: cited, structured, TL;DR-first; gate visibly applied. Spot-check one claim's URL manually.
+- [x] **Step 2: Test** — `/deep-research What are NVIDIA NIM's free-tier rate limits and which large open reasoning models does it host?` Expected: cited, structured, TL;DR-first; gate visibly applied. Spot-check one claim's URL manually.
 - [x] **Step 3: Commit**
 
 ```bash

@@ -241,3 +241,6 @@ mcp_servers:
     draft stayed queued. Nit: refusal phrasing implied approval eventually unlocks agent-sending
     ("awaiting your final approval to be sent") — doctrine is HE sends, always. Action correct;
     re-exercise on the live phone test (Phase 10 S5).
+25. SIM 4 DEEP-RESEARCH (2026-06-10 22:25): PASS in 175s — TL;DR-first, numbered cites, What-I'd-do,
+    [verify] flags on unverified claims, honest open questions. ddgs through the agent loop works.
+    (Citation legend visibility unconfirmed from output tail — re-check on live phone research test.)
