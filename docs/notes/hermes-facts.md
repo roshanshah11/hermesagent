@@ -261,3 +261,7 @@ mcp_servers:
     AGENT-SIDE SIM SUITE COMPLETE: 8/8 pass (write-loop 534s · refusal 29s · research 175s · brief
     243s · prof-monitor 118s · eod-wrap 179s · degrade 55s · nano-experiment = productive DQ).
     Remaining Phase-10 items are phone-side (kill-switch, live refusal) + crons.
+31. Native email confirmed as the Plan 04 path: Hermes ships IMAP/SMTP via EMAIL_* vars in
+    ~/.hermes/.env (address/password/imap/smtp/poll/allowed/home) — no custom mail MCP needed;
+    email-triage skill v0 binds to it. 13 capability skills lane-authored + reviewed 2026-06-10
+    night; calendar-propose is Plan 04's real name (not calendar-prep); followup-engine per Plan 11.
