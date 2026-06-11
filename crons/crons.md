@@ -28,6 +28,12 @@ hermes cron create "0 8 * * 1" \
 ## v1.1 (off by default — do NOT register yet)
 
 ```bash
+# 0. End-of-day wrap — daily 21:30 (skill shipped 2026-06-10; register after live test)
+# hermes cron create "30 21 * * *" "Run the eod-wrap skill." \
+#   --name eod-wrap --skill eod-wrap --skill notion-ops --deliver telegram
+```
+
+```bash
 # 4. Markets digest — daily 07:00 (≥15 min after the brief; needs Plan 06)
 # hermes cron create "0 7 * * *" "Run the markets-digest skill." \
 #   --name markets-digest --skill deep-research --deliver telegram

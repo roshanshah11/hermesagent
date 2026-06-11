@@ -93,8 +93,8 @@ echo "==> [8/8] Pre-seed search/extract deps in the Hermes venv (ddgs + crawl4ai
 # uv-created venvs ship without pip — use the managed uv against the venv python.
 # crawl4ai: pip install ONLY — NEVER run 'crawl4ai-setup' (that downloads Chromium;
 # the 2GB box must stay browser-free; the extract-ladder MCP uses the HTTP strategy).
-"$HERMES_HOME/bin/uv" pip install --python "$HERMES_HOME/hermes-agent/venv/bin/python" -q ddgs crawl4ai \
-  && echo "    ddgs + crawl4ai OK" || echo "    WARN: install failed (extract-ladder degrades to stdlib; ddgs lazy-installs)"
+"$HERMES_HOME/bin/uv" pip install --python "$HERMES_HOME/hermes-agent/venv/bin/python" -q ddgs crawl4ai openpyxl \
+  && echo "    ddgs + crawl4ai + openpyxl OK" || echo "    WARN: install failed (extract-ladder degrades to stdlib; ddgs lazy-installs)"
 
 echo
 echo "DONE. Next steps:"
