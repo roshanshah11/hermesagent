@@ -265,3 +265,7 @@ mcp_servers:
     ~/.hermes/.env (address/password/imap/smtp/poll/allowed/home) — no custom mail MCP needed;
     email-triage skill v0 binds to it. 13 capability skills lane-authored + reviewed 2026-06-10
     night; calendar-propose is Plan 04's real name (not calendar-prep); followup-engine per Plan 11.
+32. PLAN 02 VERIFIED (2026-06-10 23:4x): rubric sim PASS 224s — visible 5-dim scoring table,
+    10/10 ship decision, 3 cited sources, honest open questions. Plans 02+03 artifacts authored,
+    wired, committed same night (rubric, trust ledger 26 skills, spot-audit + heartbeat cron defs
+    w/ cookie liveness probe, snapshots protocol, incidents runbook, injection guard rule 6).

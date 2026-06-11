@@ -29,7 +29,7 @@ FAIL → redo with the failing dimensions named. Max 2 redos, then deliver WITH 
 ```
 
 - [x] **Step 2: Edit `skills/deep-research/SKILL.md`** — replace its inline checklist section with: `## The gate\nApply context/quality-rubric.md verbatim (score all 5; ship ≥9/10, no zeros; max 2 redos then escalate with failure banner).`
-- [ ] **Step 3: Test** — `/deep-research <small question>`; ask Hermes to show its rubric scoring. Expected: 5 scores + ship/redo decision visible.
+- [x] **Step 3: Test** — `/deep-research <small question>`; ask Hermes to show its rubric scoring. Expected: 5 scores + ship/redo decision visible.
 - [x] **Step 4: Commit** — `git add context/quality-rubric.md skills/deep-research/ && git commit -m "feat(harness): quality rubric as versioned artifact"`
 
 ### Task 2: Trust-dial ledger
@@ -57,7 +57,7 @@ Demotion = automatic after any safety violation: drop one level + Telegram alert
 ```
 
 - [x] **Step 2: Wire into persona** — append to `context/HERMES.md`: `Before any action, your autonomy level for it is defined in context/trust.md. Below L2 = queue, don't act.`
-- [ ] **Step 3: Test** — ask Hermes: `What's your autonomy level for sending outreach? For filing a dossier?` Expected: L1/L2 with correct behavior described.
+- [x] **Step 3: Test** — ask Hermes: `What's your autonomy level for sending outreach? For filing a dossier?` Expected: L1/L2 with correct behavior described.
 - [x] **Step 4: Commit** — `git add context/trust.md context/HERMES.md && git commit -m "feat(harness): trust-dial ledger"`
 
 ### Task 3: Weekly spot-audit loop
