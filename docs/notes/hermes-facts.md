@@ -254,3 +254,5 @@ mcp_servers:
     runs emit thought-fragments as final text — Telegram voice law (no raw scratchpad) now in SOUL.
 28. SIM 6 RETRY (2026-06-10 23:00): PASS in 118s — real hook produced (Heather Zheng TEDx talk →
     AI-safety x quant angle, live URL). prof-monitor functional after the view-id registry fix.
+29. SIM 7 EOD-WRAP (2026-06-10 23:10): PASS in 179s on first run — done/open/decisions/preview
+    contract, honest "none" entries, Change Log correctly read as the done-source.
