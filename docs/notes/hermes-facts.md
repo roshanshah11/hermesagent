@@ -244,3 +244,5 @@ mcp_servers:
 25. SIM 4 DEEP-RESEARCH (2026-06-10 22:25): PASS in 175s — TL;DR-first, numbered cites, What-I'd-do,
     [verify] flags on unverified claims, honest open questions. ddgs through the agent loop works.
     (Citation legend visibility unconfirmed from output tail — re-check on live phone research test.)
+26. SIM 5 MORNING-BRIEF (2026-06-10 22:40): PASS in 243s — full output contract (Top3/timed/overdue/
+    deadlines/one suggestion), real rows, <25 lines. Notion read path healthy with notion_raw excluded.

@@ -515,7 +515,7 @@ version: 0.1.0
 4. Send to Telegram. Read-only — no Notion writes, no Change Log needed.
 ```
 
-- [ ] **Step 2: Test** — `/morning-brief` in chat. Expected: real rows (math SIT Jun 15, CS SIT Jun 16 era data), correct TZ, ≤25 lines.
+- [x] **Step 2: Test** — `/morning-brief` in chat. Expected: real rows (math SIT Jun 15, CS SIT Jun 16 era data), correct TZ, ≤25 lines.
 - [x] **Step 3: Commit** — `git add skills/morning-brief/ && git commit -m "feat(skill): morning-brief"`
 
 ### Task 7.4: `banker-sourcing`
