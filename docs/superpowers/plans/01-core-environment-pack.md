@@ -574,7 +574,7 @@ version: 0.1.0
    hand off to outreach-draft. No outreach without his say-so.
 ```
 
-- [ ] **Step 2: Test** — `/prof-monitor` once. Expected: it reads professor rows, checks sources, produces hooks or honestly reports "nothing new", creates the state file.
+- [x] **Step 2: Test** — `/prof-monitor` once. Expected: it reads professor rows, checks sources, produces hooks or honestly reports "nothing new", creates the state file.
 - [x] **Step 3: Commit** — `git add skills/prof-monitor/ && git commit -m "feat(skill): prof-monitor with state"`
 
 ### Task 7.6: `research-dossier`

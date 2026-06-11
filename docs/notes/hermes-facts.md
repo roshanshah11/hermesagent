@@ -252,3 +252,5 @@ mcp_servers:
     discovered live (bc10d6e9-0805-41d7-8685-6bc73784801d, 18 rows incl. the 15 profs) and recorded.
     Lesson: every DB in the registry needs collection AND view id. Secondary finding: dead-ended
     runs emit thought-fragments as final text — Telegram voice law (no raw scratchpad) now in SOUL.
+28. SIM 6 RETRY (2026-06-10 23:00): PASS in 118s — real hook produced (Heather Zheng TEDx talk →
+    AI-safety x quant angle, live URL). prof-monitor functional after the view-id registry fix.
