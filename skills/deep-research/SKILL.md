@@ -16,12 +16,10 @@ version: 0.1.0
 If local tools can't reach the depth this gate demands (paywalls, JS-only pages, thin sources),
 escalate via the heavy-research skill rather than delivering thin output.
 
-## The gate (run before delivering — if ANY check fails, redo; never deliver slop)
-- [ ] Could Roshan act on this WITHOUT redoing the research himself?
-- [ ] ≥3 independent sources, each non-obvious claim cited inline?
-- [ ] Numbers cross-checked (two sources or flagged [verify])?
-- [ ] A real point of view (would survive "so what should I do?")?
-- [ ] Uncertainty stated honestly (no confident filler)?
+## The gate
+Apply context/quality-rubric.md (environment-pack repo) verbatim: score all 5 dimensions 0-2;
+ship requires ≥9/10 with no zero; max 2 redos then deliver WITH the failure banner — never
+silently ship a fail.
 
 ## Delivery
 File full output to the relevant Notion area page (notion-ops protocol) as a sub-page;
