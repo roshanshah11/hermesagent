@@ -14,7 +14,7 @@
 
 **Files:** Create: `context/quality-rubric.md` · Modify: `skills/deep-research/SKILL.md` (point at it)
 
-- [ ] **Step 1: Write `context/quality-rubric.md`**
+- [x] **Step 1: Write `context/quality-rubric.md`**
 
 ```markdown
 # Quality Rubric (the gate — applied before ANY research deliverable ships)
@@ -28,15 +28,15 @@ FAIL → redo with the failing dimensions named. Max 2 redos, then deliver WITH 
 ("below bar because X — flagged, not hidden") via Telegram. Never silently ship a fail.
 ```
 
-- [ ] **Step 2: Edit `skills/deep-research/SKILL.md`** — replace its inline checklist section with: `## The gate\nApply context/quality-rubric.md verbatim (score all 5; ship ≥9/10, no zeros; max 2 redos then escalate with failure banner).`
+- [x] **Step 2: Edit `skills/deep-research/SKILL.md`** — replace its inline checklist section with: `## The gate\nApply context/quality-rubric.md verbatim (score all 5; ship ≥9/10, no zeros; max 2 redos then escalate with failure banner).`
 - [ ] **Step 3: Test** — `/deep-research <small question>`; ask Hermes to show its rubric scoring. Expected: 5 scores + ship/redo decision visible.
-- [ ] **Step 4: Commit** — `git add context/quality-rubric.md skills/deep-research/ && git commit -m "feat(harness): quality rubric as versioned artifact"`
+- [x] **Step 4: Commit** — `git add context/quality-rubric.md skills/deep-research/ && git commit -m "feat(harness): quality rubric as versioned artifact"`
 
 ### Task 2: Trust-dial ledger
 
 **Files:** Create: `context/trust.md`
 
-- [ ] **Step 1: Write `context/trust.md`**
+- [x] **Step 1: Write `context/trust.md`**
 
 ```markdown
 # Trust Ledger — autonomy level per skill (Hermes reads this; only Roshan changes levels)
@@ -56,17 +56,17 @@ Promotion = Roshan edits this file (or tells Hermes via Telegram → Hermes edit
 Demotion = automatic after any safety violation: drop one level + Telegram alert.
 ```
 
-- [ ] **Step 2: Wire into persona** — append to `context/HERMES.md`: `Before any action, your autonomy level for it is defined in context/trust.md. Below L2 = queue, don't act.`
+- [x] **Step 2: Wire into persona** — append to `context/HERMES.md`: `Before any action, your autonomy level for it is defined in context/trust.md. Below L2 = queue, don't act.`
 - [ ] **Step 3: Test** — ask Hermes: `What's your autonomy level for sending outreach? For filing a dossier?` Expected: L1/L2 with correct behavior described.
-- [ ] **Step 4: Commit** — `git add context/trust.md context/HERMES.md && git commit -m "feat(harness): trust-dial ledger"`
+- [x] **Step 4: Commit** — `git add context/trust.md context/HERMES.md && git commit -m "feat(harness): trust-dial ledger"`
 
 ### Task 3: Weekly spot-audit loop
 
 **Files:** Modify: `crons/crons.md`
 
-- [ ] **Step 1: Add cron** — `Weekly Sun 18:00 — spot-audit: pick the week's 2 most consequential deliverables (from Change Log Source=Hermes + filed dossiers), send Roshan each with its rubric self-scores and the prompt: "Grade these 1–10. Reply 'audit: N N'."` Register per hermes-facts.md syntax.
-- [ ] **Step 2: Closing the loop** — append to `crons/crons.md`: on `audit:` reply, Hermes records grades in `context/trust.md` history section and proposes promotions/demotions per criteria.
-- [ ] **Step 3: Commit** — `git add crons/crons.md && git commit -m "feat(harness): weekly spot-audit cron"`
+- [x] **Step 1: Add cron** — `Weekly Sun 18:00 — spot-audit: pick the week's 2 most consequential deliverables (from Change Log Source=Hermes + filed dossiers), send Roshan each with its rubric self-scores and the prompt: "Grade these 1–10. Reply 'audit: N N'."` Register per hermes-facts.md syntax.
+- [x] **Step 2: Closing the loop** — append to `crons/crons.md`: on `audit:` reply, Hermes records grades in `context/trust.md` history section and proposes promotions/demotions per criteria.
+- [x] **Step 3: Commit** — `git add crons/crons.md && git commit -m "feat(harness): weekly spot-audit cron"`
 
 ### Task 4 (v1.1, optional): Second-model judge
 
