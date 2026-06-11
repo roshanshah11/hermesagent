@@ -22,6 +22,10 @@ Use the notion-v3 MCP tools for ALL Notion operations — never drive the API vi
    Note: a 502 MemcachedCrossCellError that persists across retries on an id you just "created"
    means the row does not exist — your write failed.
 
+## Bulk writes (>5 rows or any archive sweep)
+Snapshot FIRST — see references/snapshots.md (dump affected records to output/snapshots/, cite the
+filename in the Change Log Note). The snapshot is the undo button; no bulk write without one.
+
 ## Conventions (violations corrupt his system)
 - ARCHIVE, never delete: set alive=false (rows) or move to Archive page `377b67c2-a997-8190-a880-d5244ddeb4a7`.
 - Timed rows: use the time_zone form from the recipes ({"type":"datetime",...,"time_zone":"America/New_York"}).
