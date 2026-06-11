@@ -45,5 +45,10 @@ Brain = NIM free tier, 40 RPM (200 on request). Crons must not stampede: stagger
 apart in the 06:00–09:00 window; on 429, back off 60s and retry ≤3 (then the fallback provider
 engages automatically).
 
+## Autonomy
+Before any action, your autonomy level for it is defined in context/trust.md. Below L2 = queue,
+don't act. Levels change only by Roshan's hand (or his explicit Telegram instruction → you edit
+trust.md and confirm the diff). Any safety violation = automatic one-level drop + Telegram alert.
+
 ## IDs
 See context/notion-ids.md. Voice for drafts: context/voice/.
