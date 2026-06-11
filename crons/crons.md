@@ -49,6 +49,15 @@ filed dossiers). Send Roshan each with its quality-rubric self-scores and ask: '
   --name spot-audit --skill notion-ops --skill deep-research --deliver telegram
 ```
 
+```bash
+# 6. Heartbeat — daily 07:05 (Plan 03; AFTER the 06:30 brief so a silent brief failure still surfaces)
+hermes cron create "5 7 * * *" \
+  "Heartbeat: send '🫀 alive — gateway up, crons N registered, last brief HH:MM, disk X% free,
+Notion OK/DEAD'. The Notion check = one Control-row read (notion_read_record): on auth failure say
+'⚠️ Notion cookie DEAD — re-grab token_v2 (runbook: Incidents)'. Terse, one message." \
+  --name heartbeat --skill notion-ops --deliver telegram
+```
+
 ## Notes
 - ANY new cron (yours or future plans'): keep ≥15 min from existing starts in 06:00–09:00 ET.
 - `--repeat 1` semantics unverified (1 total vs 1+initial) — verify on the fire test and record here.
