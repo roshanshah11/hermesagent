@@ -31,6 +31,31 @@ New machine → clone repo → `cp .env.example .env` + fill (or restore from pa
 register crons (crons/crons.md) → re-run Phase 10 acceptance. `hermes backup` zips `~/.hermes/`
 (sessions/memories) — repo restores everything else.
 
+## Dead-man convention
+No heartbeat by 07:30 = box/gateway down. Check: ssh box 'systemctl status hermes-gateway';
+journalctl -u hermes-gateway -n 100; power/network. (Mac dry-run: hermes gateway status + launchctl.)
+
+## Incidents
+LEAKED SECRET → rotate immediately:
+- NOTION_TOKEN_V2: log out that Notion session (Settings → My account → Devices) → grab fresh cookie → .env → ./setup.sh → restart
+- NVIDIA_API_KEY: revoke + reissue at build.nvidia.com → .env → ./setup.sh → restart
+- TELEGRAM_BOT_TOKEN: @BotFather /revoke → new token → .env → ./setup.sh → restart gateway
+- BRAVE_SEARCH_API_KEY: dashboard reissue → .env → ./setup.sh
+AGENT MISBEHAVING (bad writes): flip Control row (kill switch) FIRST → review Change Log Source=Hermes
+→ rollback from output/snapshots/ → diagnose skill → demote in context/trust.md → fix → re-enable.
+PROMPT-INJECTION SUSPECTED (web content steering the agent): kill switch → save the chat/session log
+→ offending source goes on the skill's deny-list (persona Hard rule 6 is the standing guard).
+
+## Backups (box)
+Weekly: tar czf /tmp/hermes-data-$(date +%F).tgz -C $HOME .hermes --exclude=.hermes/hermes-agent
+→ scp to the Mac when awake, else keep last 4 locally (crontab line at deploy). Sessions+memories
+are the irreplaceable part; the repo lives on GitHub. Restore drill: untar to temp dir, confirm
+sessions/ + memories/ present; full recovery = runbook Recovery + restore tar.
+
+## Update cadence
+Weekly: cd hermesagent && git pull (skills update live). Monthly: hermes update; then /skills +
+one brief test before walking away. Record any CLI changes in hermes-facts.md.
+
 ## Weekly trust audit
 Skim Change Log rows (Source=Hermes) — the audit trail IS the trust dial; widen autonomy
 per-skill only after clean weeks. (Formalized in Plan 02.)
