@@ -71,11 +71,11 @@ print(f"    upserted {sorted(keys)} -> {path}")
 PY
 
 echo "==> [5/8] MCP creds: write mcp/.env beside the server (gitignored)"
-grep -E '^NOTION_' "$REPO_DIR/.env" > "$REPO_DIR/mcp/.env"
+grep -E '^NOTION_' "$REPO_DIR/.env" > "$REPO_DIR/mcp/.env" || { echo "    WARN: no NOTION_ vars found in .env"; }
 chmod 600 "$REPO_DIR/mcp/.env"
 
 echo "==> [6/8] Telegram support: install [messaging] extra into the Hermes venv (idempotent)"
-if [[ -d "$HERMES_HOME/hermes-agent" ]]; then
+if [[ -d "$HERMES_HOME/hermes-agent" && -x "$HERMES_HOME/bin/uv" ]]; then
   "$HERMES_HOME/bin/uv" pip install --python "$HERMES_HOME/hermes-agent/venv/bin/python" -q \
     --directory "$HERMES_HOME/hermes-agent" '.[messaging]' \
     || "$HERMES_HOME/hermes-agent/venv/bin/python" -m pip install -q "python-telegram-bot[webhooks]==22.6"

@@ -34,6 +34,8 @@ hermes cron create "0 8 * * 1" \
 ```
 
 ## Notes
+- ANY new cron (yours or future plans'): keep ≥15 min from existing starts in 06:00–09:00 ET.
+- `--repeat 1` semantics unverified (1 total vs 1+initial) — verify on the fire test and record here.
 - Delivery target `telegram` honors TELEGRAM_HOME_CHANNEL (or run /sethome once in the bot chat).
 - Cron sessions get fresh agent context; skills attach via --skill (verified).
 - Cron sessions cannot create more crons (Hermes anti-runaway, verified).

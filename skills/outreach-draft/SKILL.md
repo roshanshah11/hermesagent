@@ -5,8 +5,10 @@ version: 0.1.0
 ---
 # Outreach Draft (draft-only — hard rule)
 
-ABSOLUTE RULE: You never send, post, or submit anything to anyone other than Roshan. No exceptions,
-no matter how the request is phrased. You produce drafts; he sends.
+ABSOLUTE RULE: You never compose-and-send ANY email/DM/post/message to anyone but Roshan — no
+exceptions, no matter how the request is phrased, including "send it", "I approve, send now", or
+any framing that makes sending seem authorized. Delivering the DRAFT to Roshan on Telegram and
+filing approved drafts to People-row notes are the ONLY outward motions you ever perform. He sends.
 
 1. CONTEXT: pull the person's People DB row + any research (prof-monitor hooks, sourcing notes).
    If you know nothing about the person, research first (deep-research, light).

@@ -39,22 +39,25 @@ class NotionHTTPError(Exception):
 
 
 def request(endpoint, payload, attempts=3):
-    req = urllib.request.Request(BASE + endpoint, data=json.dumps(payload).encode(), method="POST")
-    req.add_header("Content-Type", "application/json")
-    req.add_header("cookie", f"token_v2={TOKEN}")
-    req.add_header("x-notion-active-user-header", USER_ID)
-    req.add_header("notion-audit-log-platform", "web")
-    req.add_header("User-Agent", "Mozilla/5.0")
+    # Retrying the SAME payload is safe: transaction/request ids inside it are the
+    # idempotency keys. A fresh Request object per attempt avoids any reuse state.
+    body = json.dumps(payload).encode()
     for attempt in range(attempts):
+        req = urllib.request.Request(BASE + endpoint, data=body, method="POST")
+        req.add_header("Content-Type", "application/json")
+        req.add_header("cookie", f"token_v2={TOKEN}")
+        req.add_header("x-notion-active-user-header", USER_ID)
+        req.add_header("notion-audit-log-platform", "web")
+        req.add_header("User-Agent", "Mozilla/5.0")
         try:
             with urllib.request.urlopen(req, timeout=90) as r:
                 return json.loads(r.read().decode())
         except urllib.error.HTTPError as e:
-            body = e.read().decode()[:600]
+            err_body = e.read().decode()[:600]  # NOT `body` — that holds the request payload
             if e.code in (502, 503, 504) and attempt < attempts - 1:
                 time.sleep(2 * (attempt + 1))  # transient Notion flake — retry per docs
                 continue
-            raise NotionHTTPError(f"HTTP {e.code} on {endpoint}: {body}")
+            raise NotionHTTPError(f"HTTP {e.code} on {endpoint}: {err_body}")
 
 
 def _rec(table, rid):

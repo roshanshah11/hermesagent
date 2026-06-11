@@ -5,6 +5,10 @@ version: 0.2.1
 ---
 # Notion Ops — conventions for Roshan's workspace
 
+## Tools (hard rule)
+Use the notion-v3 MCP tools for ALL Notion operations — never drive the API via execute_code/python
+(forensic finding: code-exec detours added ~95s per operation and bypass MCP logging).
+
 ## Before ANY write (hard protocol)
 1. Read Control row `379b67c2-a997-8188-8db9-d4fa81162937` (mcp_notion-v3_notion_read_record,
    table=block). If break-mode/paused is set: STOP, tell Roshan via Telegram, do nothing.
@@ -20,7 +24,8 @@ version: 0.2.1
 
 ## Conventions (violations corrupt his system)
 - ARCHIVE, never delete: set alive=false (rows) or move to Archive page `377b67c2-a997-8190-a880-d5244ddeb4a7`.
-- Timed rows: explicit offset (-04:00 EDT / -05:00 EST) or the time_zone date field. NEVER naive datetimes.
+- Timed rows: use the time_zone form from the recipes ({"type":"datetime",...,"time_zone":"America/New_York"}).
+  NEVER naive datetimes; NEVER bare offset strings — the recipes' shapes are the only verified ones.
 - `When` formula is computed from `Due` — recompute yourself when reasoning about urgency.
 - Row enumeration: notion_enumerate_rows (official API caps ~25).
 - Records double-wrap: recordMap[table][id].value.value. queryCollection has no total — use high limit.

@@ -217,3 +217,16 @@ mcp_servers:
     whole-properties-set rejected). Also: agent drove notion_v3.py via execute_code instead of MCP
     tools (works, bypasses MCP logging); context compression rebadges session ids mid-run
     (137→38 msgs); a post-response loop kept burning 103k-token calls until gateway restart.
+22. SIM CAMPAIGN (2026-06-10 night): Sim1 write-loop on reasoning=low: 534s vs 79min (8.9x),
+    all 3 ids round-tripped + independently verified — readback law held, zero fabrication.
+    Forensics: latency doubles past ~85k ctx tokens; NIM stream wall = 147-153s regardless of size;
+    zombie post-response turn = "Review the conversation... update skill library" (killed by
+    creation_nudge_interval 0 — verified absent after Sim1). DRIVER SWAPPED per Roshan:
+    nemotron-3-NANO-30b-a3b (tool-calling qualified raw; 3B active) with super-120b + deepseek-flash
+    as fallback chain. Config adds: compression 0.40/0.30/protect30, terminal.timeout 120,
+    tool_loop_guardrails.hard_stop true, max_turns 40. Mistake-hunt fixes: setup.sh grep||true +
+    uv guard; notion_v3 fresh Request per retry (+ fixed body-shadowing bug found in self-review);
+    notion-ops MCP-tools-not-execute_code hard rule + time_zone-only guidance; outreach-draft
+    loophole tightened ("I approve, send now" still = draft-only); HERMES.md rule 3 aligned.
+    Rejected from sweeps: request_timeout 180 (uncertain benefit), cache_ttl 1h (Anthropic-only),
+    aux compression reroute (needs new key, breaks $0).

@@ -17,7 +17,7 @@ _config_version: 29
 # =============================================================================
 model:
   provider: "nvidia"
-  default: "nvidia/nemotron-3-super-120b-a12b"   # DRIVER — agentic/tool-calling MoE (fast, 12B active)
+  default: "nvidia/nemotron-3-nano-30b-a3b"   # DRIVER — agentic family, 3B active = FAST (tool-calling qualified 2026-06-10; Roshan ok'd speed-first)
 
 # Fallback chain (tried in order on 429/5xx/timeout):
 #   deepseek-v4-flash — fast fallback when the driver rate-limits or flakes.
@@ -26,10 +26,12 @@ model:
 # Exact catalog ids re-verified at key time: curl /v1/models (see hermes-facts.md).
 fallback_providers:
   - provider: nvidia
+    model: nvidia/nemotron-3-super-120b-a12b   # depth fallback (was driver; 79-min incident note in facts)
+  - provider: nvidia
     model: deepseek-ai/deepseek-v4-flash
 
 agent:
-  max_turns: 60
+  max_turns: 40   # 60 let a task burn 10%+ of the daily free-tier budget (forensics 2026-06-10)
   # LOW after the 2026-06-10 live finding: medium produced 200-600KB thinking
   # streams that NIM free tier drops at ~150s (ReadTimeout), forcing full-stream
   # retries — a simple task-add took 79 min. The driver is an orchestrator:
@@ -47,6 +49,20 @@ agent:
 # token and grows via progressive edits; final edit renders MarkdownV2.
 streaming:
   enabled: true
+
+# Context discipline (forensics: latency doubles past ~85k tokens; compress earlier, keep tail)
+compression:
+  threshold: 0.40
+  target_ratio: 0.30
+  protect_last_n: 30
+
+terminal:
+  timeout: 120   # hung commands eat the turn budget
+
+# Circuit breakers for autonomous/cron sessions (stop doomed loops, save quota)
+tool_loop_guardrails:
+  warnings_enabled: true
+  hard_stop_enabled: true
 
 display:
   platforms:
