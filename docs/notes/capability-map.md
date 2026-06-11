@@ -1,6 +1,9 @@
 # Capability map — Roshan's asks (2026-06-10) × plan corpus
 
 Legend: ✅ live tonight · 📋 planned (plan #) · 🆕 new — needs a plan home · 🧪 sim-tested
+> 2026-06-10 23:15 UPDATE: lanes A-F authored + merged 15 more skills (26 total in the pack, all
+> registered). Every 📋 row below now has its SKILL.md shipped — remaining work per capability =
+> its plan's discovery/wiring/test tasks + Roshan's ⛔ inputs. Sim suite 8/8.
 
 ## Daily rhythm
 | Ask | Status | Home |
