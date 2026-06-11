@@ -288,3 +288,10 @@ mcp_servers:
    23:35:47 + auto-delivered + one-shot --repeat semantics confirmed. PASS
 PHASE 10 GATE: PASSED. Remaining before "live": tomorrow 06:30 brief arrives unprompted (the
 finish line), box deploy (Phase 11 + Plan 14 Task 0) at the Compaq.
+34. HARNESS COMPLETION SWEEP (2026-06-10 ~23:55, stop-hook goal): all 11 registry DBs + Course Plan
+    now carry live-verified view ids (parent-block discovery; Change Log enumerates 42 rows = the
+    night's audit trail). Input scaffolds shipped: context/repos.md (allowlist seeded from gh —
+    hermesagent/tradingrepo/personalwebsite; notion-life-os explicitly hands-off), portfolio.md,
+    applications/ answer-library dir, recruiting-sources.md v0 (all firm names [verify]-gated to
+    live careers pages). Paid-tools verdict: docs/notes/paid-tools-recommendations.md — $0 holds;
+    ranked spends if wanted (OpenRouter ~$10/mo resilience first; hardware only after memory gate).
